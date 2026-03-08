@@ -703,7 +703,7 @@ if (photosInput){
 /* ========================================
    QUICK QUOTE (CALLBACK) FUNCTIONALITY
 ======================================== */
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
     const btnCallMeBack = document.getElementById('btnCallMeBack');
@@ -715,26 +715,25 @@ if (photosInput){
     const submitBtn = document.getElementById('btnQuickSubmit');
     const successBlock = document.getElementById('quickQuoteSuccess');
 
-    if (!btnCallMeBack || !overlay) return;
+    if (!btnCallMeBack || !overlay) {
+        console.log('Quick Quote: button or overlay not found');
+        return;
+    }
 
     let scrollY = 0;
 
     // Открыть модалку
     function openModal() {
-        // Сохраняем позицию скролла
         scrollY = window.pageYOffset || document.documentElement.scrollTop;
         
-        // Блокируем скролл body
         document.body.style.position = 'fixed';
         document.body.style.top = `-${scrollY}px`;
         document.body.style.left = '0';
         document.body.style.right = '0';
         document.body.style.overflow = 'hidden';
         
-        // Показываем модалку
         overlay.classList.add('open');
         
-        // Фокус на поле ввода
         setTimeout(() => phoneInput?.focus(), 150);
     }
 
@@ -742,35 +741,30 @@ if (photosInput){
     function closeModalFn() {
         overlay.classList.remove('open');
         
-        // Восстанавливаем скролл
         document.body.style.position = '';
         document.body.style.top = '';
         document.body.style.left = '';
         document.body.style.right = '';
         document.body.style.overflow = '';
         
-        // Возвращаемся к сохранённой позиции
         window.scrollTo(0, scrollY);
     }
 
     btnCallMeBack.addEventListener('click', openModal);
     closeBtn?.addEventListener('click', closeModalFn);
 
-    // Закрыть по клику на overlay (но не на модалку)
     overlay.addEventListener('click', (e) => {
         if (e.target === overlay) {
             closeModalFn();
         }
     });
 
-    // Закрыть по Escape
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && overlay.classList.contains('open')) {
             closeModalFn();
         }
     });
 
-    // Отправка формы
     form?.addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -781,7 +775,6 @@ if (photosInput){
             return;
         }
 
-        // Блокируем кнопку
         submitBtn.disabled = true;
         submitBtn.querySelector('.btn-quick-text').textContent = '...';
 
@@ -793,11 +786,9 @@ if (photosInput){
             });
 
             if (response.ok) {
-                // Успех
                 form.style.display = 'none';
                 successBlock.style.display = 'block';
 
-                // Закрываем через 3 секунды
                 setTimeout(() => {
                     closeModalFn();
                     setTimeout(() => {
@@ -818,4 +809,4 @@ if (photosInput){
             submitBtn.querySelector('.btn-quick-text').textContent = 'Send';
         }
     });
-})();
+});
