@@ -640,6 +640,205 @@
             0%, 100% { box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4); }
             50% { box-shadow: 0 4px 30px rgba(34, 197, 94, 0.6); }
         }
+        
+        /* Orange Price Button */
+        .btn-price {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: #fff;
+            border: none;
+            padding: 16px 40px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(249, 115, 22, 0.4);
+            animation: orangeGlow 2s ease-in-out infinite;
+            font-family: inherit;
+        }
+        .btn-price:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(249, 115, 22, 0.5);
+        }
+        .btn-price:active {
+            transform: translateY(-1px);
+        }
+        @keyframes orangeGlow {
+            0%, 100% { box-shadow: 0 4px 20px rgba(249, 115, 22, 0.4); }
+            50% { box-shadow: 0 4px 30px rgba(249, 115, 22, 0.6); }
+        }
+        
+        /* Price Modal */
+        .price-modal-overlay {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            height: 100dvh !important;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 999999 !important;
+            display: none;
+            overflow: hidden;
+        }
+        .price-modal-overlay.open {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        .price-modal {
+            position: relative !important;
+            background: #fff;
+            border-radius: 24px;
+            padding: 36px 32px;
+            max-width: 480px;
+            width: calc(100% - 40px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+            animation: modalFadeIn 0.3s ease;
+            z-index: 1000000 !important;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .price-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            background: #f1f5f9;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            line-height: 1;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .price-modal-close:hover {
+            background: #e2e8f0;
+            color: #334155;
+        }
+        .price-modal-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0 0 24px;
+            text-align: center;
+        }
+        .price-list {
+            margin: 0 0 20px;
+            padding: 0;
+            list-style: none;
+        }
+        .price-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 1rem;
+            color: #334155;
+        }
+        .price-list-item:first-child {
+            background: linear-gradient(90deg, rgba(249, 115, 22, 0.1) 0%, rgba(249, 115, 22, 0.05) 100%);
+            margin: -8px -16px 8px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border-bottom: none;
+            font-weight: 700;
+            color: #ea580c;
+        }
+        .price-list-item:last-child {
+            border-bottom: none;
+        }
+        .price-list-item span {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .price-note {
+            text-align: center;
+            font-size: 0.95rem;
+            color: #64748b;
+            margin: 0 0 24px;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 12px;
+            line-height: 1.6;
+        }
+        .price-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .price-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 24px;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-family: inherit;
+        }
+        .price-btn-callback {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+        }
+        .price-btn-callback:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.5);
+        }
+        .price-btn-call {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+        }
+        .price-btn-call:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(249, 115, 22, 0.5);
+        }
+        .price-btn-quote {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-l) 100%);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+        }
+        .price-btn-quote:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.5);
+        }
+        
+        /* Hide call button on desktop */
+        @media (min-width: 769px) {
+            .price-btn-call {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .btn-price {
+                padding: 14px 28px;
+                font-size: 1rem;
+            }
+            .price-modal {
+                padding: 28px 20px;
+                border-radius: 20px;
+            }
+            .price-modal-title {
+                font-size: 1.3rem;
+            }
+        }
 
         .quick-quote-overlay {
             position: fixed !important;
@@ -1155,6 +1354,38 @@
         <div class="quick-quote-success" id="quickQuoteSuccess" style="display:none;">
             <div class="success-checkmark">✓</div>
             <p class="success-message">We'll contact you shortly</p>
+        </div>
+    </div>
+</div>
+
+<!-- Price Modal -->
+<div class="price-modal-overlay" id="priceModalOverlay">
+    <div class="price-modal" id="priceModal">
+        <button class="price-modal-close" id="priceModalClose" type="button" aria-label="Close">&times;</button>
+        <h3 class="price-modal-title">Our Pricing</h3>
+        
+        <ul class="price-list">
+            <li class="price-list-item">Minimum service call <span>$120</span></li>
+            <li class="price-list-item">Gutter Cleaning <span>from $150</span></li>
+            <li class="price-list-item">Window Washing <span>from $150</span></li>
+            <li class="price-list-item">Pressure Washing <span>from $200</span></li>
+            <li class="price-list-item">Moss Removal <span>from $400</span></li>
+            <li class="price-list-item">Junk Removal <span>from $150</span></li>
+            <li class="price-list-item">Handyman Services <span>from $120</span></li>
+        </ul>
+        
+        <p class="price-note">Call us today to find out what special offers and discounts are available.</p>
+        
+        <div class="price-buttons">
+            <button class="price-btn price-btn-callback" id="priceCallMeBack" type="button">
+                <i class="fa-solid fa-phone"></i> Call me back
+            </button>
+            <a class="price-btn price-btn-call" href="tel:+16725006060">
+                <i class="fa-solid fa-phone-volume"></i> Call now
+            </a>
+            <a class="price-btn price-btn-quote" href="/#quote" data-page-link="quote">
+                <i class="fa-solid fa-file-lines"></i> Get your price in a minute
+            </a>
         </div>
     </div>
 </div>

@@ -813,6 +813,86 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 /* ========================================
+   PRICE MODAL
+======================================== */
+document.addEventListener('DOMContentLoaded', function() {
+    'use strict';
+    
+    const btnPrice = document.getElementById('btnPrice');
+    const priceOverlay = document.getElementById('priceModalOverlay');
+    const priceModal = document.getElementById('priceModal');
+    const priceClose = document.getElementById('priceModalClose');
+    const priceCallMeBack = document.getElementById('priceCallMeBack');
+    const quickQuoteOverlay = document.getElementById('quickQuoteOverlay');
+    
+    if (!btnPrice || !priceOverlay) return;
+    
+    let scrollY = 0;
+    
+    function openPriceModal() {
+        scrollY = window.pageYOffset || document.documentElement.scrollTop;
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.left = '0';
+        document.body.style.right = '0';
+        document.body.style.overflow = 'hidden';
+        priceOverlay.classList.add('open');
+    }
+    
+    function closePriceModal() {
+        priceOverlay.classList.remove('open');
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.overflow = '';
+        window.scrollTo(0, scrollY);
+    }
+    
+    btnPrice.addEventListener('click', openPriceModal);
+    priceClose?.addEventListener('click', closePriceModal);
+    
+    priceOverlay.addEventListener('click', (e) => {
+        if (e.target === priceOverlay) {
+            closePriceModal();
+        }
+    });
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && priceOverlay.classList.contains('open')) {
+            closePriceModal();
+        }
+    });
+    
+    // "Call me back" button opens quick quote modal
+    if (priceCallMeBack && quickQuoteOverlay) {
+        priceCallMeBack.addEventListener('click', () => {
+            closePriceModal();
+            setTimeout(() => {
+                scrollY = window.pageYOffset || document.documentElement.scrollTop;
+                document.body.style.position = 'fixed';
+                document.body.style.top = `-${scrollY}px`;
+                document.body.style.left = '0';
+                document.body.style.right = '0';
+                document.body.style.overflow = 'hidden';
+                quickQuoteOverlay.classList.add('open');
+                const phoneInput = document.getElementById('quickPhone');
+                if (phoneInput) setTimeout(() => phoneInput.focus(), 150);
+            }, 300);
+        });
+    }
+    
+    // Close price modal when clicking quote link
+    const quoteLinks = priceModal?.querySelectorAll('a[href*="quote"]');
+    quoteLinks?.forEach(link => {
+        link.addEventListener('click', () => {
+            closePriceModal();
+        });
+    });
+});
+
+
+/* ========================================
    STICKY BOTTOM BAR MENU
 ======================================== */
 document.addEventListener('DOMContentLoaded', function() {
