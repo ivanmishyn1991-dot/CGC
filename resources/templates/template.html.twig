@@ -41,19 +41,32 @@
 
     <!-- Critical CSS inline for above-the-fold content -->
     <style>
-        :root{--primary:#1e3a5f;--primary-l:#2c5282;--primary-d:#0f2942;--accent:#fbbf24;--gray-1:#f8fafc;--gray-6:#475569;--radius:16px;--shadow-sm:0 1px 3px rgba(0,0,0,0.1)}
+        :root{--primary:#0284c7;--primary-d:#0369a1;--primary-l:#38bdf8;--accent:#fbbf24;--accent-d:#f59e0b;--bg-light:#f0f9ff;--gray-1:#f8fafc;--gray-2:#e2e8f0;--gray-3:#cbd5e1;--gray-6:#475569;--gray-8:#0f172a;--radius:16px;--shadow-sm:0 4px 12px rgba(2,132,199,0.08);--shadow-md:0 10px 30px rgba(2,132,199,0.14);--transition:0.28s cubic-bezier(0.4,0,0.2,1);--headerH:96px}
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-        body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--gray-1);color:#1e293b;line-height:1.6}
-        .container{max-width:1200px;margin:0 auto;padding:0 20px}
-        header{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:var(--shadow-sm)}
-        .header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0;gap:16px}
-        .logo img{height:80px;width:auto}
-        nav{display:flex;gap:24px}
-        nav a{color:var(--primary);text-decoration:none;font-weight:600}
-        .btn-call,.btn-email{padding:10px 20px;border-radius:var(--radius);font-weight:600;text-decoration:none}
-        .btn-call{background:var(--accent);color:var(--primary)}
-        .hamburger{display:none;background:none;border:none;font-size:24px;cursor:pointer}
-        @media(max-width:900px){nav{display:none}.hamburger{display:block}.btn-email{display:none}}
+        html{scroll-behavior:smooth;scroll-padding-top:var(--headerH)}
+        body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg-light);color:var(--gray-8);line-height:1.65;overflow-x:hidden}
+        .container{max-width:1180px;margin:0 auto;padding:0 20px}
+        h1,h2,h3{font-family:Poppins,sans-serif;line-height:1.25}
+        header{position:sticky;top:0;z-index:1000;height:var(--headerH);background:#fff;box-shadow:0 6px 20px rgba(2,132,199,.12)}
+        .header-inner{display:flex;align-items:center;justify-content:space-between;height:var(--headerH);gap:16px;position:relative}
+        .logo{cursor:pointer}.logo img{height:80px;width:auto}
+        nav{display:flex;gap:40px;align-items:center}
+        nav a{color:var(--gray-8);text-decoration:none;font-weight:600;font-size:1.1rem;padding:8px 12px;border-radius:8px}
+        .btn-call,.btn-email{font-weight:900;border-radius:999px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
+        .btn-call{background:var(--accent);color:var(--gray-8);padding:18px 44px;font-size:1.12rem;box-shadow:0 6px 18px rgba(251,191,36,.35)}
+        .hamburger{display:none;font-size:2.8rem;background:0 0;border:none;cursor:pointer;color:var(--primary)}
+        @media(max-width:860px){nav{display:none}.hamburger{display:block}}
+        @media(min-width:861px){.header-inner{justify-content:center}header .btn-call,header .btn-email{position:fixed;top:calc(var(--headerH)/2);transform:translateY(-50%);min-width:260px;height:58px;z-index:1001}header .btn-email{left:20px;background:linear-gradient(90deg,var(--primary),var(--primary-l));color:#fff}header .btn-call{right:20px;background:linear-gradient(90deg,var(--primary),var(--primary-l));color:#fff}}
+        .hero-container{text-align:center;padding-bottom:40px}
+        section{padding:80px 0 110px}
+        h2{font-size:clamp(2.2rem,7vw,4rem);text-align:center;margin-bottom:1.3em;background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .btn-primary{background:linear-gradient(90deg,var(--primary),var(--primary-l));color:#fff;border:none;padding:18px 56px;font-size:1.15rem;font-weight:800;border-radius:999px;cursor:pointer;box-shadow:0 10px 24px rgba(2,132,199,.28);text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+        .trust-bar{max-width:980px;margin:26px auto 0;background:rgba(255,255,255,.88);border:1px solid rgba(2,132,199,.18);border-radius:999px;padding:12px 14px;display:flex;flex-wrap:wrap;gap:10px 14px;justify-content:center}
+        .trust-pill{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;border:1px solid rgba(56,189,248,.55);border-radius:999px;font-weight:700;color:var(--gray-8);font-size:.98rem;white-space:nowrap}
+        .cgc-robot-wrap{position:fixed;right:0;bottom:0;z-index:2600;pointer-events:none}
+        .cgc-robot-btn{pointer-events:auto;border:0;background:0 0;padding:0;cursor:pointer;width:240px;height:240px;position:relative}
+        .cgc-robot-img{width:100%;height:100%;object-fit:contain;display:block}
+        @media(max-width:860px){.cgc-robot-btn{width:clamp(170px,34vw,220px);height:clamp(170px,34vw,220px)}}
     </style>
 
     <!-- Google Fonts - Non-blocking with preload -->
@@ -63,6 +76,9 @@
     <!-- FontAwesome - Deferred loading -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
+
+    <!-- Preload critical images for LCP -->
+    <link rel="preload" href="/assets/images/logo.webp" as="image" type="image/webp" fetchpriority="high">
 
     <!-- Schema.org Structured Data -->
     <script type="application/ld+json">
@@ -338,11 +354,14 @@
     </script>
 
     {% block styles %}
-        <link rel="stylesheet" type="text/css" href="/assets/css/style.min.css">
+        <!-- Non-blocking CSS: loads async, then applies as stylesheet -->
+        <link rel="stylesheet" href="/assets/css/style.min.css" media="print" onload="this.media='all'">
+        <noscript><link rel="stylesheet" href="/assets/css/style.min.css"></noscript>
     {% endblock %}
 
-    <!-- Main page styles (consolidated) -->
-    <link rel="stylesheet" type="text/css" href="/assets/css/main-page.min.css">
+    <!-- Main page styles (non-blocking) -->
+    <link rel="stylesheet" href="/assets/css/main-page.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/assets/css/main-page.min.css"></noscript>
 </head>
 <body>
 <!-- Toast Container -->
@@ -423,11 +442,12 @@
     <button class="cgc-robot-btn" id="cgcRobotBtn" type="button" aria-expanded="false" aria-label="Open contacts">
         <img
                 class="cgc-robot-img"
-                src="/assets/images/social-robot.png"
+                src="/assets/images/social-robot.webp"
                 alt="CGC Robot"
-                width="80"
-                height="80"
-                loading="lazy"
+                width="200"
+                height="300"
+                fetchpriority="low"
+                decoding="async"
         />
         <div class="cgc-robot-bubble" id="cgcRobotBubble">Tap me</div>
     </button>

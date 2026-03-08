@@ -13,13 +13,30 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="dns-prefetch" href="https://connect.facebook.net">
     
+    <!-- Preload critical images for LCP -->
+    <link rel="preload" href="/assets/images/logo.webp" as="image" type="image/webp" fetchpriority="high">
+    
     <!-- Critical CSS inline -->
     <style>
-        :root{--primary:#1e3a5f;--primary-l:#2c5282;--accent:#fbbf24;--gray-1:#f8fafc;--radius:16px}
+        :root{--primary:#0284c7;--primary-d:#0369a1;--primary-l:#38bdf8;--accent:#fbbf24;--bg-light:#f0f9ff;--gray-1:#f8fafc;--gray-6:#475569;--gray-8:#0f172a;--radius:16px;--headerH:96px}
         *{box-sizing:border-box;margin:0;padding:0}
-        body{font-family:'Inter',system-ui,sans-serif;background:var(--gray-1);color:#1e293b;line-height:1.6}
-        .container{max-width:1200px;margin:0 auto;padding:0 20px}
-        header{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+        html{scroll-behavior:smooth}
+        body{font-family:'Inter',system-ui,sans-serif;background:var(--bg-light);color:var(--gray-8);line-height:1.65;overflow-x:hidden}
+        .container{max-width:1180px;margin:0 auto;padding:0 20px}
+        h1,h2,h3{font-family:Poppins,sans-serif;line-height:1.25}
+        header{position:sticky;top:0;z-index:1000;height:var(--headerH);background:#fff;box-shadow:0 6px 20px rgba(2,132,199,.12)}
+        .header-inner{display:flex;align-items:center;justify-content:space-between;height:var(--headerH);gap:16px}
+        .logo{cursor:pointer}.logo img{height:80px;width:auto}
+        nav{display:flex;gap:40px;align-items:center}
+        nav a{color:var(--gray-8);text-decoration:none;font-weight:600}
+        .btn-call,.btn-email{font-weight:900;border-radius:999px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+        .hamburger{display:none;font-size:2.8rem;background:0 0;border:none;cursor:pointer;color:var(--primary)}
+        @media(max-width:860px){nav{display:none}.hamburger{display:block}}
+        @media(min-width:861px){header .btn-call,header .btn-email{position:fixed;top:calc(var(--headerH)/2);transform:translateY(-50%);min-width:260px;height:58px;z-index:1001;background:linear-gradient(90deg,var(--primary),var(--primary-l));color:#fff}header .btn-email{left:20px}header .btn-call{right:20px}}
+        .cgc-robot-wrap{position:fixed;right:0;bottom:0;z-index:2600;pointer-events:none}
+        .cgc-robot-btn{pointer-events:auto;border:0;background:0 0;padding:0;cursor:pointer;width:240px;height:240px}
+        .cgc-robot-img{width:100%;height:100%;object-fit:contain}
+        @media(max-width:860px){.cgc-robot-btn{width:clamp(170px,34vw,220px);height:clamp(170px,34vw,220px)}}
     </style>
     
     <!-- Google Fonts - Non-blocking -->
@@ -53,9 +70,12 @@
     </script>
     {% endblock %}
 
-    <link rel="stylesheet" type="text/css" href="/assets/css/page-city.min.css">
+    <!-- Non-blocking CSS -->
+    <link rel="stylesheet" href="/assets/css/page-city.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/assets/css/page-city.min.css"></noscript>
     <!-- Modals styles (shared with main page) -->
-    <link rel="stylesheet" type="text/css" href="/assets/css/main-page.min.css">
+    <link rel="stylesheet" href="/assets/css/main-page.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/assets/css/main-page.min.css"></noscript>
 </head>
 <body>
 <div id="bg-robots"></div>
@@ -209,8 +229,12 @@
     <button class="cgc-robot-btn" id="cgcRobotBtn" type="button" aria-expanded="false" aria-label="Open contacts">
         <img
                 class="cgc-robot-img"
-                src="/assets/images/social-robot.png"
+                src="/assets/images/social-robot.webp"
                 alt="CGC Robot"
+                width="200"
+                height="300"
+                fetchpriority="low"
+                decoding="async"
         />
         <div class="cgc-robot-bubble" id="cgcRobotBubble">Tap me</div>
     </button>
