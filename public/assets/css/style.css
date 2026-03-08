@@ -68,15 +68,10 @@ body.modal-open { overflow: hidden; }
 h1, h2, h3 { font-family: 'Poppins', sans-serif; line-height: 1.25; }
 .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
 
-/* Hero container - fixed height to prevent iOS Safari address bar resize issues */
+/* Hero container - removed fixed height to prevent iOS Safari jumping */
 .hero-container {
     text-align: center;
-    min-height: 80svh; /* small viewport - stable */
-}
-@supports not (min-height: 80svh) {
-    .hero-container {
-        min-height: 600px; /* fallback for older browsers */
-    }
+    padding-bottom: 40px;
 }
 
 header {
