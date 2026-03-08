@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Core\CsrfProtection;
+use App\Core\RateLimiter;
 use App\Entities\Application;
 use App\Services\TelegramSenderService;
 use Flight as F;
@@ -12,7 +14,26 @@ class ApplicationController extends Controller
 
     public function create(): void
     {
+        // Rate limiting: 5 requests per minute
+        $rateCheck = RateLimiter::check('quote_form', 5, 60);
+        if (!$rateCheck['allowed']) {
+            F::response()->status(429);
+            F::json([
+                'success' => false, 
+                'error' => 'Too many requests. Please wait ' . $rateCheck['retry_after'] . ' seconds.'
+            ]);
+            return;
+        }
+        
         $data = F::request()->data->getData();
+
+        // CSRF validation
+        $csrfToken = $data['csrf_token'] ?? '';
+        if (!CsrfProtection::validateToken($csrfToken)) {
+            F::response()->status(403);
+            F::json(['success' => false, 'error' => 'Invalid security token. Please refresh the page and try again.']);
+            return;
+        }
 
         // Валидация обязательных полей
         $name = trim($data['name'] ?? '');
@@ -108,7 +129,26 @@ class ApplicationController extends Controller
      */
     public function quickQuote(): void
     {
+        // Rate limiting: 5 requests per minute
+        $rateCheck = RateLimiter::check('quick_quote', 5, 60);
+        if (!$rateCheck['allowed']) {
+            F::response()->status(429);
+            F::json([
+                'success' => false,
+                'error' => 'Too many requests. Please wait ' . $rateCheck['retry_after'] . ' seconds.'
+            ]);
+            return;
+        }
+        
         $data = F::request()->data->getData();
+        
+        // CSRF validation
+        $csrfToken = $data['csrf_token'] ?? '';
+        if (!CsrfProtection::validateToken($csrfToken)) {
+            F::response()->status(403);
+            F::json(['success' => false, 'error' => 'Invalid security token. Please refresh the page.']);
+            return;
+        }
         
         $phone = trim($data['phone'] ?? '');
         

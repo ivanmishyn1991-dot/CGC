@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Core\RateLimiter;
 use Flight as F;
 
 class UploadController extends Controller
@@ -23,6 +24,13 @@ class UploadController extends Controller
      */
     public function upload(): void
     {
+        // Rate limiting: 20 uploads per minute
+        $rateCheck = RateLimiter::check('upload', 20, 60);
+        if (!$rateCheck['allowed']) {
+            $this->jsonError('Too many uploads. Please wait.', 429);
+            return;
+        }
+        
         // Проверяем метод
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->jsonError('Method not allowed', 405);

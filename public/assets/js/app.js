@@ -1,6 +1,70 @@
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 
+/* ===== Toast Notification System ===== */
+const Toast = {
+    container: null,
+    
+    init() {
+        this.container = document.getElementById('toastContainer');
+        if (!this.container) {
+            this.container = document.createElement('div');
+            this.container.className = 'toast-container';
+            this.container.id = 'toastContainer';
+            document.body.appendChild(this.container);
+        }
+    },
+    
+    show(message, type = 'info', duration = 4000) {
+        if (!this.container) this.init();
+        
+        const icons = {
+            success: '✓',
+            error: '✕',
+            warning: '⚠',
+            info: 'ℹ'
+        };
+        
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.innerHTML = `
+            <div class="toast-icon">${icons[type] || icons.info}</div>
+            <div class="toast-content">${message}</div>
+            <button class="toast-close" type="button">&times;</button>
+        `;
+        
+        this.container.appendChild(toast);
+        
+        // Trigger animation
+        requestAnimationFrame(() => {
+            toast.classList.add('show');
+        });
+        
+        // Close button
+        toast.querySelector('.toast-close').addEventListener('click', () => {
+            this.hide(toast);
+        });
+        
+        // Auto hide
+        if (duration > 0) {
+            setTimeout(() => this.hide(toast), duration);
+        }
+        
+        return toast;
+    },
+    
+    hide(toast) {
+        toast.classList.remove('show');
+        toast.classList.add('hide');
+        setTimeout(() => toast.remove(), 400);
+    },
+    
+    success(message, duration) { return this.show(message, 'success', duration); },
+    error(message, duration) { return this.show(message, 'error', duration); },
+    warning(message, duration) { return this.show(message, 'warning', duration); },
+    info(message, duration) { return this.show(message, 'info', duration); }
+};
+
 /* ===== MOBILE burger/nav FIX (работает, не ломает ПК) ===== */
 let nav = null;
 let burger = null;
@@ -265,6 +329,9 @@ $('#quoteForm')?.addEventListener('submit', (e) => {
     message += 'Promo: ' + ($('#promo')?.value?.trim() || '-') + "<br>";
     message += 'Details: ' + ($('#notes')?.value?.trim() || '-') + "<br>";
 
+    // Get CSRF token
+    const csrfToken = $('input[name="csrf_token"]')?.value || '';
+
     const payload = {
         name: $('#name')?.value?.trim() || '',
         phone: $('#phone')?.value?.trim() || '',
@@ -274,7 +341,8 @@ $('#quoteForm')?.addEventListener('submit', (e) => {
         notes: $('#notes')?.value?.trim() || '',
         consent_terms: !!$('#consentTerms')?.checked,
         consent_contact_all: !!$('#consentContactAll')?.checked,
-        uploaded_photos: $('#uploadedPhotos')?.value || ''
+        uploaded_photos: $('#uploadedPhotos')?.value || '',
+        csrf_token: csrfToken
     };
 
     fetch('/applications', {
@@ -291,10 +359,10 @@ $('#quoteForm')?.addEventListener('submit', (e) => {
             return response.json();
         })
         .then(data => {
-            // console.log('Success:', data);
+            // Success
         })
         .catch(error => {
-            // Error sending form
+            Toast.error('Error sending form. Please try again.');
         });
 
 
@@ -324,6 +392,9 @@ $('#quoteForm')?.addEventListener('submit', (e) => {
         
         success.style.display = 'block';
         success.textContent = 'Thanks! We received your request and will reply shortly.';
+        
+        // Show toast notification
+        Toast.success('Your request has been sent! We will contact you shortly.');
     }
 
 });
@@ -540,7 +611,7 @@ window.clearUploadedPhotos = function() {
 
         // Проверка лимита
         if (uploadedFiles.length + fileArray.length > MAX_FILES) {
-            alert(`Maximum ${MAX_FILES} photos allowed. You can add ${MAX_FILES - uploadedFiles.length} more.`);
+            Toast.warning(`Maximum ${MAX_FILES} photos allowed. You can add ${MAX_FILES - uploadedFiles.length} more.`);
             return;
         }
 
@@ -731,7 +802,7 @@ window.clearUploadedPhotos = function() {
 
     // Показать общую ошибку
     function showError(message) {
-        alert(message);
+        Toast.error(message);
     }
 })();
 
@@ -805,6 +876,7 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
 
         const phone = phoneInput?.value?.trim();
+        const csrfToken = form.querySelector('input[name="csrf_token"]')?.value || '';
 
         if (!phone || phone.length < 10) {
             phoneInput?.focus();
@@ -818,12 +890,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const response = await fetch('/quick-quote', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ phone: phone })
+                body: JSON.stringify({ phone: phone, csrf_token: csrfToken })
             });
 
             if (response.ok) {
                 form.style.display = 'none';
                 successBlock.style.display = 'block';
+                
+                Toast.success('We will call you back shortly!');
 
                 setTimeout(() => {
                     closeModalFn();
@@ -839,8 +913,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error('Server error');
             }
         } catch (error) {
-            // Error handled silently
-            alert('Error sending request. Please try again.');
+            Toast.error('Error sending request. Please try again.');
             submitBtn.disabled = false;
             submitBtn.querySelector('.btn-quick-text').textContent = 'Send';
         }

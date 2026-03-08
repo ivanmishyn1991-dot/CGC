@@ -306,6 +306,9 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/main-page.css">
 </head>
 <body>
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
 <div id="bg-robots"></div>
 
 {% include 'landing/components/header.html.twig' %}
@@ -397,6 +400,7 @@
         <p class="quick-quote-subtitle">Leave your number and we'll call you back shortly</p>
 
         <form id="quickQuoteForm" class="quick-quote-form">
+            {{ csrf_field() }}
             <div class="quick-quote-input-wrap">
                 <input type="tel" id="quickPhone" name="phone" placeholder="Your phone number" required pattern="^[0-9+\s()-]{10,20}$" autocomplete="tel">
             </div>

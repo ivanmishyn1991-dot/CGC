@@ -255,6 +255,7 @@
 
             <div class="form-card">
                 <form id="quoteForm" novalidate>
+                    {{ csrf_field() }}
                     <div class="form-group">
                         <label class="field-label" for="name">Full Name *</label>
                         <input id="name" name="name" type="text" autocomplete="name" required placeholder="Full name" aria-label="Full name">

@@ -11,7 +11,25 @@ class TwigExtensions extends AbstractExtension
     {
         return [
             new TwigFunction('get_work_photos', [$this, 'getWorkPhotos']),
+            new TwigFunction('csrf_token', [$this, 'getCsrfToken']),
+            new TwigFunction('csrf_field', [$this, 'getCsrfField'], ['is_safe' => ['html']]),
         ];
+    }
+    
+    /**
+     * Get CSRF token value
+     */
+    public function getCsrfToken(): string
+    {
+        return CsrfProtection::getToken();
+    }
+    
+    /**
+     * Get CSRF hidden input field HTML
+     */
+    public function getCsrfField(): string
+    {
+        return CsrfProtection::getHiddenInput();
     }
 
     /**
