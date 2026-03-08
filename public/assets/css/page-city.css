@@ -372,7 +372,7 @@ h2 {
     line-height: 1.25;
     margin-bottom: 28px;
     font-weight: 700;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .article-doc h2 {
@@ -380,7 +380,7 @@ h2 {
     margin-top: 48px;
     margin-bottom: 18px;
     font-weight: 700;
-    font-family: Georgia, serif;
+    font-family: 'Poppins', sans-serif;
     /* override global gradient h2 */
     background: none;
     -webkit-text-fill-color: initial;
@@ -828,9 +828,9 @@ footer a:hover{ color: white; }
     border: 1px solid rgba(2,132,199,0.18);
 
     font-weight: 800;
-    color: var(--gray-8);
+    color: var(--primary);
 
-    transition: all .18s ease;
+    transition: all .25s ease;
     text-decoration:none;
     display:flex;
     align-items:center;
@@ -839,9 +839,10 @@ footer a:hover{ color: white; }
 }
 
 .side-services .service-link:hover{
-    transform: translateX(4px);
+    transform: translateY(-4px);
     background: #f0f9ff;
-    border-color: var(--primary);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(251, 191, 36, 0.35), 0 0 15px rgba(251, 191, 36, 0.4);
 }
 
 .btn-primary {
