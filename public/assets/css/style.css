@@ -1252,8 +1252,21 @@ body.quote-mode #quotePage .btn-sms:hover{
         box-shadow: 0 10px 24px rgba(2,132,199,0.24) !important;
         padding: 12px 18px !important;
         font-size: 1rem !important;
-        /* REMOVED animation to prevent layout shifts on mobile */
+        animation: mobileGlowOnly 3s ease-in-out infinite !important;
     }
+    
+    /* Safe animation - only glow, no transform */
+    @keyframes mobileGlowOnly {
+        0%, 100% {
+            box-shadow: 0 10px 24px rgba(2,132,199,0.24);
+            filter: brightness(1);
+        }
+        50% {
+            box-shadow: 0 10px 30px rgba(2,132,199,0.35), 0 0 20px rgba(56,189,248,0.4);
+            filter: brightness(1.05);
+        }
+    }
+    
     header .btn-call:hover{
         background: linear-gradient(90deg, var(--primary-d), var(--primary)) !important;
         box-shadow: 0 16px 34px rgba(2,132,199,0.30) !important;
@@ -1288,7 +1301,7 @@ body.quote-mode #quotePage .btn-sms:hover{
         font-weight: 900;
         padding: 12px 14px;
         box-shadow: 0 10px 24px rgba(2,132,199,0.24);
-        /* REMOVED animation to prevent layout shifts */
+        animation: mobileGlowOnly 3s ease-in-out infinite;
         white-space: nowrap;
     }
     #quotePage .quote-mobile-actions a:hover{
