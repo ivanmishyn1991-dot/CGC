@@ -456,6 +456,13 @@ h2 {
     font-size: 0.98rem;
     box-shadow: 0 10px 24px rgba(2,132,199,0.10);
     white-space: nowrap;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.trust-pill:hover {
+    box-shadow: 0 10px 30px rgba(2,132,199,0.25), 0 0 15px rgba(56,189,248,0.3);
+    transform: translateY(-2px);
 }
 
 .trust-dot{
@@ -656,7 +663,23 @@ h2 {
 .service-areas-bar:hover { transform: scale(1.04); box-shadow: 0 16px 40px rgba(2,132,199,0.3); }
 
 .cities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-.city { padding: 20px; background: white; border-radius: 12px; text-align: center; font-weight: 800; border: 1px solid var(--primary-l); }
+.city { 
+    padding: 20px; 
+    background: white; 
+    border-radius: 12px; 
+    text-align: center; 
+    font-weight: 800; 
+    border: 1px solid var(--primary-l); 
+    transition: all 0.38s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+.city:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(2,132,199,0.14);
+    border-color: var(--accent);
+}
 
 footer {
     background: var(--primary-d);
