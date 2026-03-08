@@ -27,7 +27,12 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
-html { scroll-behavior: smooth; scroll-padding-top: var(--headerH); }
+html { 
+    scroll-behavior: smooth; 
+    scroll-padding-top: var(--headerH);
+    /* Fix iOS Safari address bar resize issue */
+    height: -webkit-fill-available;
+}
 body {
     font-family: 'Inter', system-ui, sans-serif;
     background: var(--bg-light);
@@ -35,7 +40,8 @@ body {
     line-height: 1.65;
     font-size: var(--fs-base);
     overflow-x: hidden;
-    min-height: 100vh;
+    min-height: 100svh; /* small viewport height - stable on iOS */
+    min-height: -webkit-fill-available; /* fallback for older iOS */
 }
 body.modal-open { overflow: hidden; }
 
@@ -1252,21 +1258,9 @@ body.quote-mode #quotePage .btn-sms:hover{
         box-shadow: 0 10px 24px rgba(2,132,199,0.24) !important;
         padding: 12px 18px !important;
         font-size: 1rem !important;
-        animation: mobileGlowOnly 3s ease-in-out infinite !important;
+        animation: mobileGlowWiggle 8s ease-in-out infinite !important;
+        will-change: transform, box-shadow, filter;
     }
-    
-    /* Safe animation - only glow, no transform */
-    @keyframes mobileGlowOnly {
-        0%, 100% {
-            box-shadow: 0 10px 24px rgba(2,132,199,0.24);
-            filter: brightness(1);
-        }
-        50% {
-            box-shadow: 0 10px 30px rgba(2,132,199,0.35), 0 0 20px rgba(56,189,248,0.4);
-            filter: brightness(1.05);
-        }
-    }
-    
     header .btn-call:hover{
         background: linear-gradient(90deg, var(--primary-d), var(--primary)) !important;
         box-shadow: 0 16px 34px rgba(2,132,199,0.30) !important;
@@ -1301,7 +1295,8 @@ body.quote-mode #quotePage .btn-sms:hover{
         font-weight: 900;
         padding: 12px 14px;
         box-shadow: 0 10px 24px rgba(2,132,199,0.24);
-        animation: mobileGlowOnly 3s ease-in-out infinite;
+        animation: mobileGlowWiggle 8s ease-in-out infinite;
+        will-change: transform, box-shadow, filter;
         white-space: nowrap;
     }
     #quotePage .quote-mobile-actions a:hover{
