@@ -118,9 +118,9 @@
     cursor: default;
 }
 .answer-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 30px rgba(2,132,199,0.14);
+    transform: translateY(-4px);
     border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(251, 191, 36, 0.35), 0 0 15px rgba(251, 191, 36, 0.4);
 }
 .answer-card h3 {
     margin: 0 0 12px;
@@ -158,9 +158,9 @@
     cursor: default;
 }
 .include-item:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 30px rgba(2,132,199,0.14);
+    transform: translateY(-4px);
     border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(251, 191, 36, 0.35), 0 0 15px rgba(251, 191, 36, 0.4);
 }
 @media (max-width: 860px) {
     .answer-grid,
@@ -754,6 +754,28 @@
     .btn-callback {
         padding: 14px 28px;
         font-size: 1rem;
+    }
+}
+
+/* Mobile: кнопки 50/50 одинакового размера */
+@media (max-width: 768px) {
+    .cta-row {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        width: 100%;
+        padding: 0 16px;
+        box-sizing: border-box;
+    }
+    
+    .cta-row .btn-callback,
+    .cta-row .btn-price {
+        flex: 1;
+        min-width: 0;
+        padding: 14px 12px;
+        font-size: 0.95rem;
+        justify-content: center;
+        text-align: center;
     }
 }
 
