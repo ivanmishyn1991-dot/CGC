@@ -841,11 +841,7 @@
     <button class="cgc-robot-hit" id="cgcRobotHit" type="button" aria-label="Open contacts"></button>
 </div>
 
-{% block scripts %}
-    <script src="/assets/js/app.js?rand={{ random() }}"></script>
-{% endblock %}
-
-<!-- Quick Quote Modal (positioned at body end for full-screen backdrop) -->
+<!-- Quick Quote Modal (MUST be before scripts) -->
 <div class="quick-quote-overlay" id="quickQuoteOverlay">
     <div class="quick-quote-modal" id="quickQuoteModal">
         <button class="quick-quote-close" id="quickQuoteClose" type="button" aria-label="Close">&times;</button>
@@ -875,6 +871,10 @@
         </div>
     </div>
 </div>
+
+{% block scripts %}
+    <script src="/assets/js/app.js?rand={{ random() }}"></script>
+{% endblock %}
 
 </body>
 </html>
