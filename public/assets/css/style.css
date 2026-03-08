@@ -511,8 +511,15 @@ h2 {
     background:white;
     border-radius: var(--radius);
     box-shadow: var(--shadow-sm);
-    border: 1px solid var(--primary-l);
+    border: 1px solid transparent;
     overflow:hidden;
+    transition: all 0.38s ease;
+}
+
+.faq-item:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent);
 }
 
 .faq-question{
