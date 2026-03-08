@@ -1,5 +1,54 @@
 const $ = s => document.querySelector(s);
 
+
+/* ===== Cities Modal (Areas link in header) ===== */
+(function(){
+    const citiesModal = $('#citiesModal');
+    const headerAreasTrigger = $('#headerAreasTrigger');
+    
+    if (!citiesModal) return;
+    
+    function openCitiesModal() {
+        citiesModal.classList.add('open');
+        citiesModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeCitiesModal() {
+        citiesModal.classList.remove('open');
+        citiesModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+    
+    // Header Areas link
+    if (headerAreasTrigger) {
+        headerAreasTrigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            openCitiesModal();
+        });
+    }
+    
+    // Close button
+    const closeBtn = citiesModal.querySelector('.modal-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeCitiesModal);
+    }
+    
+    // Click outside to close
+    citiesModal.addEventListener('click', (e) => {
+        if (e.target === citiesModal) {
+            closeCitiesModal();
+        }
+    });
+    
+    // Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && citiesModal.classList.contains('open')) {
+            closeCitiesModal();
+        }
+    });
+})();
+
 /* burger/nav */
 let nav = null;
 let burger = null;
