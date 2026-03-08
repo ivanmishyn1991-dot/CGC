@@ -719,20 +719,38 @@ if (photosInput){
 
     // Открыть модалку
     btnCallMeBack.addEventListener('click', () => {
+        // Сохраняем текущую позицию скролла
+        const scrollY = window.scrollY;
+        
         overlay.classList.add('open');
         document.body.style.overflow = 'hidden';
-        setTimeout(() => phoneInput?.focus(), 100);
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.width = '100%';
+        document.body.dataset.scrollY = scrollY;
+        
+        // Скроллим overlay наверх чтобы модалка была видна
+        overlay.scrollTop = 0;
+        
+        setTimeout(() => phoneInput?.focus(), 150);
     });
 
     // Закрыть модалку
     function closeModal() {
         overlay.classList.remove('open');
+        
+        // Восстанавливаем позицию скролла
+        const scrollY = document.body.dataset.scrollY || 0;
         document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        window.scrollTo(0, parseInt(scrollY));
     }
 
     closeBtn?.addEventListener('click', closeModal);
 
-    // Закрыть по клику на overlay
+    // Закрыть по клику на overlay (но не на модалку)
     overlay.addEventListener('click', (e) => {
         if (e.target === overlay) {
             closeModal();
