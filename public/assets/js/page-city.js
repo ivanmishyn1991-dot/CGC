@@ -623,15 +623,39 @@ window.addEventListener('load', () => {
         });
     });
     
-    // Hide bar when footer is visible
+    // Hide bar on scroll down, show on scroll up
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    
+    function updateStickyBar() {
+        const currentScrollY = window.scrollY;
+        
+        // If scrolling down and scrolled more than 100px from top
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            stickyBar.classList.add('hidden');
+        } else {
+            // Scrolling up - show bar
+            stickyBar.classList.remove('hidden');
+        }
+        
+        lastScrollY = currentScrollY;
+        ticking = false;
+    }
+    
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(updateStickyBar);
+            ticking = true;
+        }
+    }, { passive: true });
+    
+    // Also hide when footer is visible (keep this as extra check)
     const footer = document.querySelector('footer');
     if (footer) {
         const footerObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     stickyBar.classList.add('hidden');
-                } else {
-                    stickyBar.classList.remove('hidden');
                 }
             });
         }, { threshold: 0.1 });
