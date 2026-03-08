@@ -717,50 +717,56 @@ if (photosInput){
 
     if (!btnCallMeBack || !overlay) return;
 
+    let scrollY = 0;
+
     // Открыть модалку
-    btnCallMeBack.addEventListener('click', () => {
-        // Сохраняем текущую позицию скролла
-        const scrollY = window.scrollY;
+    function openModal() {
+        // Сохраняем позицию скролла
+        scrollY = window.pageYOffset || document.documentElement.scrollTop;
         
-        overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
+        // Блокируем скролл body
         document.body.style.position = 'fixed';
         document.body.style.top = `-${scrollY}px`;
-        document.body.style.width = '100%';
-        document.body.dataset.scrollY = scrollY;
+        document.body.style.left = '0';
+        document.body.style.right = '0';
+        document.body.style.overflow = 'hidden';
         
-        // Скроллим overlay наверх чтобы модалка была видна
-        overlay.scrollTop = 0;
+        // Показываем модалку
+        overlay.classList.add('open');
         
+        // Фокус на поле ввода
         setTimeout(() => phoneInput?.focus(), 150);
-    });
-
-    // Закрыть модалку
-    function closeModal() {
-        overlay.classList.remove('open');
-        
-        // Восстанавливаем позицию скролла
-        const scrollY = document.body.dataset.scrollY || 0;
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        window.scrollTo(0, parseInt(scrollY));
     }
 
-    closeBtn?.addEventListener('click', closeModal);
+    // Закрыть модалку
+    function closeModalFn() {
+        overlay.classList.remove('open');
+        
+        // Восстанавливаем скролл
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.overflow = '';
+        
+        // Возвращаемся к сохранённой позиции
+        window.scrollTo(0, scrollY);
+    }
+
+    btnCallMeBack.addEventListener('click', openModal);
+    closeBtn?.addEventListener('click', closeModalFn);
 
     // Закрыть по клику на overlay (но не на модалку)
     overlay.addEventListener('click', (e) => {
         if (e.target === overlay) {
-            closeModal();
+            closeModalFn();
         }
     });
 
     // Закрыть по Escape
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && overlay.classList.contains('open')) {
-            closeModal();
+            closeModalFn();
         }
     });
 
@@ -780,7 +786,6 @@ if (photosInput){
         submitBtn.querySelector('.btn-quick-text').textContent = '...';
 
         try {
-            // Отправляем на отдельный endpoint для callback-заявок
             const response = await fetch('/quick-quote', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -788,14 +793,13 @@ if (photosInput){
             });
 
             if (response.ok) {
-                // Успех - показываем галочку
+                // Успех
                 form.style.display = 'none';
                 successBlock.style.display = 'block';
 
                 // Закрываем через 3 секунды
                 setTimeout(() => {
-                    closeModal();
-                    // Сбрасываем форму
+                    closeModalFn();
                     setTimeout(() => {
                         form.style.display = 'block';
                         form.reset();
