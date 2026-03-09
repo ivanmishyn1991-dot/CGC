@@ -3,14 +3,6 @@
 date_default_timezone_set('America/Vancouver');
 require __DIR__.'/../bootstrap/app.php';
 
-// Enable output compression if not already enabled by Apache
-if (!ini_get('zlib.output_compression') && !headers_sent()) {
-    if (extension_loaded('zlib')) {
-        ini_set('zlib.output_compression', 'On');
-        ini_set('zlib.output_compression_level', '6');
-    }
-}
-
 Flight::route('/', ['App\Controllers\MainController', 'index']);
 
 Flight::route('/cities/@city', ['App\Controllers\MainController', 'cityPage']);
