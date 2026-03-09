@@ -9,6 +9,11 @@ class MainController extends Controller
         $this->view->display('landing/main.html.twig');
     }
 
+    public function quotePage() : void
+    {
+        $this->view->display('landing/quote.html.twig');
+    }
+
     public function page($route) : bool
     {
         $file = current(explode('?', $route->splat, 2));

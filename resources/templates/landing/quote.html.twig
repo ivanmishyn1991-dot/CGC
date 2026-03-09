@@ -1,0 +1,274 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Get a Free Quote | Clean Gutters Crew - Metro Vancouver{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="Get a free quote for gutter cleaning, window washing, pressure washing, moss removal and more in Metro Vancouver. Fast response, clear pricing, insured service.">
+    <meta name="keywords" content="free quote, gutter cleaning quote, window washing quote, pressure washing quote, Vancouver, Surrey, Burnaby">
+    <link rel="canonical" href="https://cgc-services.ca/quote">
+{% endblock %}
+
+{% block schema %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Get a Free Quote",
+        "description": "Request a free quote for exterior home services in Metro Vancouver",
+        "url": "https://cgc-services.ca/quote",
+        "mainEntity": {
+            "@type": "Service",
+            "serviceType": "Home Exterior Cleaning",
+            "provider": {
+                "@type": "LocalBusiness",
+                "name": "Clean Gutters Crew",
+                "telephone": "+1-672-500-6060",
+                "email": "cgc.services.bc@gmail.com",
+                "areaServed": {
+                    "@type": "GeoCircle",
+                    "geoMidpoint": {
+                        "@type": "GeoCoordinates",
+                        "latitude": 49.2827,
+                        "longitude": -123.1207
+                    },
+                    "geoRadius": "50000"
+                }
+            }
+        }
+    }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <section class="quote-page-section" aria-label="Quote Request Form">
+        <div class="container">
+            <div class="quote-page-header">
+                <a class="btn-back-home" href="/">← Back to Home</a>
+            </div>
+
+            <div class="quote-mobile-actions" aria-label="Quick contact actions">
+                <a id="btnText" href="sms:+16725006060" aria-label="Text us at +1 (672) 500-6060">Text us</a>
+                <a id="btnEmail" href="https://mail.google.com/mail/?view=cm&fs=1&to=cgc.services.bc@gmail.com" aria-label="Email us at cgc.services.bc@gmail.com">Email us</a>
+            </div>
+
+            <div class="quote-hero-title">Get a free quote in about 1 minute</div>
+            <div class="quote-hero-sub">
+                Tell us what you need and your city. We'll confirm price and availability fast.
+            </div>
+
+            <div class="quote-mini-proof" aria-label="Social proof">
+                <div class="proof-chip">★★★★★ <span>local homeowners</span></div>
+                <div class="proof-chip">Clear price <span>before we start</span></div>
+                <div class="proof-chip">No deposit <span>pay after job</span></div>
+            </div>
+
+            <div class="urgency-bar" id="urgencyBar">
+                Rainy-season reminder: clogged gutters can overflow fast
+                <small>Book early for the next available time slot</small>
+            </div>
+
+            <div class="form-card">
+                <form id="quoteForm" novalidate>
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <label class="field-label" for="name">Full Name *</label>
+                        <input id="name" name="name" type="text" autocomplete="name" required placeholder="Full name" aria-label="Full name">
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="field-label" for="phone">Phone *</label>
+                            <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    required
+                                    placeholder="Phone number"
+                                    aria-label="Phone number"
+                                    pattern="^[0-9+\s()-]{10,20}$"
+                                    title="Please enter at least 10 digits"
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="field-label" for="email">Email</label>
+                            <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    autocomplete="email"
+                                    placeholder="Email"
+                                    aria-label="Email address"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="field-label" for="city">City *</label>
+                            <input
+                                    id="city"
+                                    name="city"
+                                    type="text"
+                                    autocomplete="address-level2"
+                                    required
+                                    placeholder="City (e.g., Vancouver)"
+                                    list="cityList"
+                                    aria-label="City"
+                            />
+                            <datalist id="cityList">
+                                <option value="Vancouver"></option>
+                                <option value="Surrey"></option>
+                                <option value="Burnaby"></option>
+                                <option value="Langley"></option>
+                                <option value="Coquitlam"></option>
+                                <option value="Richmond"></option>
+                                <option value="Delta"></option>
+                                <option value="North Vancouver"></option>
+                                <option value="New Westminster"></option>
+                                <option value="West Vancouver"></option>
+                                <option value="Maple Ridge"></option>
+                                <option value="Port Coquitlam"></option>
+                                <option value="Port Moody"></option>
+                                <option value="White Rock"></option>
+                                <option value="Pitt Meadows"></option>
+                                <option value="Tsawwassen"></option>
+                                <option value="Ladner"></option>
+                            </datalist>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="field-label" for="postal">Postal Code *</label>
+                            <input
+                                    id="postal"
+                                    name="postal"
+                                    type="text"
+                                    autocomplete="postal-code"
+                                    maxlength="7"
+                                    placeholder="Postal code"
+                                    style="text-transform:uppercase;"
+                                    autocapitalize="characters"
+                                    autocorrect="off"
+                                    spellcheck="false"
+                                    inputmode="text"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="field-label" for="address">Street Address *</label>
+                        <input id="address" name="address" type="text" autocomplete="street-address" required placeholder="Street address" aria-label="Street address">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="field-label">Preferred Contact Method</label>
+                        <div class="contact-group" role="radiogroup" aria-label="Preferred Contact Method">
+                            <label><input type="radio" name="contact" value="Call" checked> Call</label>
+                            <label><input type="radio" name="contact" value="SMS"> SMS</label>
+                            <label><input type="radio" name="contact" value="Email"> Email</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group services-group">
+                        <label class="field-label">Select Services (at least one) *</label>
+                        <div class="checkbox-group" aria-label="Select Services">
+                            <label><input type="checkbox" name="service" value="Gutter Cleaning"><span>Gutter Cleaning</span></label>
+                            <label><input type="checkbox" name="service" value="Window Washing"><span>Window Washing</span></label>
+                            <label><input type="checkbox" name="service" value="Pressure Washing"><span>Pressure Washing (Driveway & Exterior)</span></label>
+                            <label><input type="checkbox" name="service" value="Moss Removal"><span>Moss Removal</span></label>
+                            <label><input type="checkbox" name="service" value="Junk Removal"><span>Junk Removal</span></label>
+                            <label><input type="checkbox" name="service" value="Handyman"><span>Handyman Services</span></label>
+                        </div>
+                        <div class="error" id="serviceError">Please select at least one service</div>
+                    </div>
+
+                    <!-- Photo Upload Section -->
+                    <div class="form-group photo-upload-group">
+                        <label class="field-label">Photos (optional)</label>
+                        <p class="field-hint">Upload photos of your gutters, roof, or areas that need service. This helps us provide a more accurate quote.</p>
+
+                        <div class="photo-upload-zone" id="photoUploadZone">
+                            <div class="upload-icon">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                                </svg>
+                            </div>
+                            <p class="upload-text">Drag & drop photos here or <span class="upload-link">browse</span></p>
+                            <p class="upload-formats">JPG, PNG, WebP • Max 10MB each • Up to 10 photos</p>
+                            <input type="file" id="photoInput" name="photos" multiple accept="image/jpeg,image/png,image/webp,image/heic" style="display:none;">
+                        </div>
+
+                        <div class="photo-preview-grid" id="photoPreviewGrid"></div>
+                        <div class="upload-progress" id="uploadProgress" style="display:none;">
+                            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+                            <span class="progress-text" id="progressText">Uploading...</span>
+                        </div>
+                        <input type="hidden" id="uploadedPhotos" name="uploaded_photos" value="">
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="field-label" for="promo">Promo Code (optional)</label>
+                            <input id="promo" name="promo" type="text" autocomplete="off" placeholder="Promo code (optional)" aria-label="Promo code">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label" for="notes">Notes (optional)</label>
+                            <input id="notes" name="notes" type="text" autocomplete="off" placeholder="Any details (stories, access, timing)" aria-label="Notes">
+                        </div>
+                    </div>
+
+                    <div class="consent-box" id="consentBox">
+                        <div class="consent-title">Consents</div>
+
+                        <div class="consent-cards">
+                            <div class="consent-card">
+                                <label>
+                                    <input type="checkbox" id="consentTerms" name="consent_terms" required checked>
+                                    <span>I agree to the <a target="_blank" href="/docs/privacy">Privacy Policy</a> and consent to my data being used to process my request. <span class="req">(Required)</span></span>
+                                </label>
+                            </div>
+
+                            <div class="consent-card">
+                                <label>
+                                    <input type="checkbox" id="consentContactAll" name="consent_contact_all" checked>
+                                    <span>I agree to be contacted by Clean Gutters Crew by call, SMS or email about my request and occasional offers. Unsubscribe anytime.</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="consent-legal">
+                            View our <a target="_blank" href="/docs/privacy">Privacy Policy</a> and <a target="_blank" href="/docs/terms">Terms of Service</a>.
+                        </div>
+
+                        <div class="consent-error" id="consentError">
+                            Please accept the required Privacy Policy consent to submit the form.
+                        </div>
+                    </div>
+
+                    <div class="recaptcha-row" style="display:flex; justify-content:center; margin-top:14px;">
+                        <div class="g-recaptcha" data-sitekey="6LejNW4sAAAAAIwL5QG6mwIp5-og_20kjEBEnv3G"></div>
+                    </div>
+
+                    <div class="submit-row">
+                        <button type="submit" class="btn-primary submit-btn" id="submitBtn">
+                            Submit & Get Quote
+                        </button>
+                    </div>
+
+                    <div class="error" id="captchaError">Please confirm you are not a robot</div>
+
+                    <div class="micro-guarantee">
+                        We'll confirm the total price before we start. If it doesn't match what you expect, you can say no.
+                    </div>
+
+                    <div class="success-msg" id="successMsg"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="/assets/js/app.min.js?rand={{ random() }}"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% endblock %}

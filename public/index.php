@@ -5,6 +5,8 @@ require __DIR__.'/../bootstrap/app.php';
 
 Flight::route('/', ['App\Controllers\MainController', 'index']);
 
+Flight::route('/quote', ['App\Controllers\MainController', 'quotePage']);
+
 Flight::route('/cities/@city', ['App\Controllers\MainController', 'cityPage']);
 
 Flight::route('/test', ['App\Controllers\MainController', 'test']);

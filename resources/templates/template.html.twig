@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 
     <!-- AEO: Improved meta tags -->
-    <title>Gutter Cleaning, Window Washing & Moss Removal in Metro Vancouver | Clean Gutters Crew</title>
+    <title>{% block title %}Gutter Cleaning, Window Washing & Moss Removal in Metro Vancouver | Clean Gutters Crew{% endblock %}</title>
+    {% block meta %}
     <meta name="description" content="Local exterior cleaning in Metro Vancouver: gutter cleaning, window washing, pressure washing, moss removal, junk removal and handyman services. Fast quotes, insured service, pay after the job." />
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <link rel="canonical" href="https://cgc-services.ca/" />
+    {% endblock %}
 
     <!-- Open Graph meta tags -->
     <meta property="og:type" content="website">
@@ -36,21 +38,20 @@
     <link rel="dns-prefetch" href="https://www.google.com">
     <link rel="dns-prefetch" href="https://www.gstatic.com">
 
-    <!-- Preload critical resources -->
+    <!-- Preload only critical fonts -->
     <link rel="preload" href="/assets/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/assets/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/assets/images/logo-optimized.webp" as="image" type="image/webp">
+    <link rel="preload" href="/assets/fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- Critical CSS with @font-face -->
     <style>
-        @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/inter-400.woff2') format('woff2')}
-        @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('/assets/fonts/inter-500.woff2') format('woff2')}
-        @font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/inter-600.woff2') format('woff2')}
-        @font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url('/assets/fonts/inter-700.woff2') format('woff2')}
-        @font-face{font-family:'Poppins';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/poppins-400.woff2') format('woff2')}
-        @font-face{font-family:'Poppins';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/poppins-600.woff2') format('woff2')}
-        @font-face{font-family:'Poppins';font-style:normal;font-weight:700;font-display:swap;src:url('/assets/fonts/poppins-700.woff2') format('woff2')}
-        @font-face{font-family:'Poppins';font-style:normal;font-weight:800;font-display:swap;src:url('/assets/fonts/poppins-800.woff2') format('woff2')}
+        @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:optional;src:url('/assets/fonts/inter-400.woff2') format('woff2')}
+        @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:optional;src:url('/assets/fonts/inter-500.woff2') format('woff2')}
+        @font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:optional;src:url('/assets/fonts/inter-600.woff2') format('woff2')}
+        @font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:optional;src:url('/assets/fonts/inter-700.woff2') format('woff2')}
+        @font-face{font-family:'Poppins';font-style:normal;font-weight:600;font-display:optional;src:url('/assets/fonts/poppins-600.woff2') format('woff2')}
+        @font-face{font-family:'Poppins';font-style:normal;font-weight:700;font-display:optional;src:url('/assets/fonts/poppins-700.woff2') format('woff2')}
+        @font-face{font-family:'Poppins';font-style:normal;font-weight:800;font-display:optional;src:url('/assets/fonts/poppins-800.woff2') format('woff2')}
         :root{--primary:#0284c7;--primary-d:#0369a1;--primary-l:#38bdf8;--accent:#fbbf24;--accent-d:#f59e0b;--bg-light:#f0f9ff;--gray-1:#f8fafc;--gray-2:#e2e8f0;--gray-3:#cbd5e1;--gray-6:#475569;--gray-8:#0f172a;--radius:16px;--shadow-sm:0 4px 12px rgba(2,132,199,0.08);--shadow-md:0 10px 30px rgba(2,132,199,0.14);--transition:0.28s cubic-bezier(0.4,0,0.2,1);--headerH:96px}
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
         html{scroll-behavior:smooth;scroll-padding-top:var(--headerH)}
@@ -77,30 +78,33 @@
         .cgc-robot-btn{pointer-events:auto;border:0;background:0 0;padding:0;cursor:pointer;width:240px;height:240px;position:relative}
         .cgc-robot-img{width:100%;height:100%;object-fit:contain;display:block}
         @media(max-width:860px){.cgc-robot-btn{width:clamp(170px,34vw,220px);height:clamp(170px,34vw,220px)}}
-        /* CLS prevention for above-the-fold elements */
-        .logo img{width:189px;height:80px;aspect-ratio:189/80}
-        nav a{display:inline-block}
-        /* Hero section - critical for LCP */
-        .aeo-hero{padding:48px 0 10px}
-        .aeo-hero h1{margin:0 0 16px;font-family:'Poppins',sans-serif;font-size:clamp(2rem,4vw,3.5rem);line-height:1.08;background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-        .aeo-hero .hero-lead{max-width:920px;font-size:1.08rem;line-height:1.75;color:#334155;margin:0 auto 22px;text-align:center}
-        .hero-points{display:flex;flex-wrap:wrap;justify-content:center;gap:16px 24px;margin-bottom:28px}
-        .hero-point{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--gray-8);font-size:1.05rem}
-        .cta-row{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
-        .btn-price{padding:18px 36px;font-size:1.1rem;border-radius:999px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+        /* CLS Prevention: Reserve exact space for hero elements */
+        .hero-container{min-height:380px;contain:layout style paint}
+        .aeo-hero{min-height:480px}
+        .aeo-hero h1{min-height:80px;font-size:clamp(2rem,4vw,3.5rem)}
+        .hero-lead{min-height:90px}
+        .hero-points{min-height:60px}
+        .cta-row{min-height:56px}
+        nav a{min-width:60px;min-height:40px}
         /* FontAwesome: reserve space before font loads */
         .fa,.fas,.far,.fab,.fa-solid,.fa-regular,.fa-brands,[class^="fa-"]{display:inline-block;width:1em;height:1em;line-height:1;vertical-align:-0.125em}
-        /* Inline critical FA icons to prevent CLS */
-        @font-face{font-family:'Font Awesome 6 Free';font-style:normal;font-weight:900;font-display:block;src:url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-solid-900.woff2') format('woff2')}
-        .fa-solid,.fas{font-family:'Font Awesome 6 Free';font-weight:900}
-        .fa-tag::before{content:"\f02b"}
+        .btn-price i{width:16px;height:16px}
+        @media(max-width:768px){.aeo-hero{min-height:auto}.hero-container{min-height:auto}.aeo-hero h1{min-height:auto}.hero-lead{min-height:auto}}
     </style>
 
     <!-- FontAwesome - Load after page render to prevent CLS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 
+    <!-- Preload critical images for LCP - optimized version -->
+    <link rel="preload" href="/assets/images/logo-optimized.webp" as="image" type="image/webp" fetchpriority="high">
+    
+    <!-- Preload CSS for faster parsing -->
+    <link rel="preload" href="/assets/css/style.min.css" as="style">
+    <link rel="preload" href="/assets/css/main-page.min.css" as="style">
+
     <!-- Schema.org Structured Data -->
+    {% block schema %}
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -372,6 +376,7 @@
       ]
     }
     </script>
+    {% endblock %}
 
     {% block styles %}
         <!-- Non-blocking CSS: loads async, then applies as stylesheet -->
@@ -426,7 +431,7 @@
                 <span style="color:rgba(255,255,255,0.55);">•</span>
                 <a href="/docs/terms" style="color:var(--accent); font-weight:900; text-decoration:none;">Terms of Service</a>
                 <span style="color:rgba(255,255,255,0.55);">•</span>
-                <a href="#quote" data-page-link="quote" style="color:var(--accent); font-weight:900; text-decoration:none;">Get a Quote</a>
+                <a href="/quote" style="color:var(--accent); font-weight:900; text-decoration:none;">Get a Quote</a>
             </div>
 
             <p style="margin-top:42px; color:rgba(203,213,225,0.95); font-size:0.98rem; font-weight:700;">
@@ -466,7 +471,6 @@
                 alt="CGC Robot"
                 width="200"
                 height="300"
-                loading="lazy"
                 fetchpriority="low"
                 decoding="async"
         />
@@ -532,7 +536,7 @@
             <a class="price-btn price-btn-call" href="tel:+16725006060">
                 <i class="fa-solid fa-phone-volume"></i> Call now
             </a>
-            <a class="price-btn price-btn-quote" href="/#quote" data-page-link="quote">
+            <a class="price-btn price-btn-quote" href="/quote">
                 <i class="fa-solid fa-file-lines"></i> Get your price in a minute
             </a>
         </div>
@@ -540,7 +544,7 @@
 </div>
 
 {% block scripts %}
-    <script src="/assets/js/app.min.js?rand={{ random() }}" defer></script>
+    <script src="/assets/js/app.min.js?rand={{ random() }}"></script>
     
     <!-- Deferred Facebook Pixel - loads after page is ready -->
     <script>
