@@ -42,15 +42,6 @@
 {% block content %}
     <section class="quote-page-section" aria-label="Quote Request Form">
         <div class="container">
-            <div class="quote-page-header">
-                <a class="btn-back-home" href="/">← Back to Home</a>
-            </div>
-
-            <div class="quote-mobile-actions" aria-label="Quick contact actions">
-                <a id="btnText" href="sms:+16725006060" aria-label="Text us at +1 (672) 500-6060">Text us</a>
-                <a id="btnEmail" href="https://mail.google.com/mail/?view=cm&fs=1&to=cgc.services.bc@gmail.com" aria-label="Email us at cgc.services.bc@gmail.com">Email us</a>
-            </div>
-
             <div class="quote-hero-title">Get a free quote in about 1 minute</div>
             <div class="quote-hero-sub">
                 Tell us what you need and your city. We'll confirm price and availability fast.
@@ -266,9 +257,48 @@
             </div>
         </div>
     </section>
+
+    <!-- Sticky Contact Button -->
+    <div class="sticky-contact-bar" id="stickyContactBar">
+        <a class="sticky-contact-btn" href="tel:+16725006060">
+            <i class="fa-solid fa-phone"></i>
+            <span>Call Us Now</span>
+        </a>
+    </div>
 {% endblock %}
 
 {% block scripts %}
     <script src="/assets/js/app.min.js?rand={{ random() }}"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+    (function() {
+        var stickyBar = document.getElementById('stickyContactBar');
+        if (!stickyBar) return;
+        
+        var lastScrollY = window.scrollY;
+        var ticking = false;
+        
+        function updateStickyBar() {
+            var currentScrollY = window.scrollY;
+            
+            if (currentScrollY > lastScrollY && currentScrollY > 200) {
+                // Scrolling down - hide
+                stickyBar.classList.add('hidden');
+            } else {
+                // Scrolling up - show
+                stickyBar.classList.remove('hidden');
+            }
+            
+            lastScrollY = currentScrollY;
+            ticking = false;
+        }
+        
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                requestAnimationFrame(updateStickyBar);
+                ticking = true;
+            }
+        }, { passive: true });
+    })();
+    </script>
 {% endblock %}
