@@ -147,12 +147,8 @@ const closeModal = (modal) => {
     if (!document.querySelector('.modal.open')) document.body.classList.remove('modal-open');
 };
 
-$$('.service-card').forEach(card => {
-    card.addEventListener('click', () => {
-        const service = card.getAttribute('data-service');
-        openModal(document.querySelector(`#modal-${service}`));
-    });
-});
+// Service cards are now links - no modal opening needed
+// $$('.service-card').forEach(card => { ... }) - REMOVED
 
 $$('.modal-close').forEach(btn => btn.onclick = () => closeModal(btn.closest('.modal')));
 

@@ -34,11 +34,27 @@ class MainController extends Controller
     public function cityPage($city) : bool
     {
         $cities = [
-
+            'vancouver',
+            'burnaby',
+            'surrey',
+            'richmond',
+            'coquitlam',
+            'langley',
+            'delta',
+            'new_westminster',
+            'north_vancouver',
+            'west_vancouver',
+            'maple_ridge',
+            'pitt_meadows',
+            'port_coquitlam',
+            'port_moody',
+            'white_rock',
+            'tsawwassen',
+            'ladner'
         ];
 
         if (in_array($city, $cities)) {
-            $this->view->display("landing/{$city}.html.twig");
+            $this->view->display("landing/cities/{$city}.html.twig");
             return false;
         } else {
             return true;
