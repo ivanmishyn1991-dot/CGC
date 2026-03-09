@@ -1295,12 +1295,18 @@ body.quote-mode #quotePage .btn-sms:hover{
 
 /* ======== MOBILE-ONLY CHANGES (max-width: 860px) ======== */
 @media (max-width: 860px){
+    /* HIDE Email button on mobile */
     #headerEmailBtn{
         display: none !important;
     }
 
-    /* HIDE Call button on mobile - replaced by Facebook social menu */
+    /* HIDE Call button on mobile */
     #headerPhoneBtn {
+        display: none !important;
+    }
+    
+    /* HIDE copied badge on mobile */
+    .copied-badge {
         display: none !important;
     }
 
@@ -1309,41 +1315,37 @@ body.quote-mode #quotePage .btn-sms:hover{
         display: none !important;
     }
 
-    /* вернуть гамбургер на мобилке */
+    /* Show hamburger on mobile */
     .hamburger{
-        display: inline-flex !important;
-    }
-
-    /* MOBILE: burger слева, лого по центру, Facebook справа */
-    header .header-inner{
-        justify-content: space-between !important;
-        gap: 0 !important;
-    }
-
-    .hamburger{
-        order: 1;
+        display: flex !important;
+        order: 2;
         flex: 0 0 auto;
         position: relative !important;
         z-index: 3000 !important;
         pointer-events: auto !important;
     }
 
-    #logoHome{
-        order: 2;
-        margin: 0 auto;
-        flex: 0 0 auto;
-        position: relative !important;
-        z-index: 2500 !important;
+    /* MOBILE HEADER LAYOUT: Social | Hamburger | Logo | (empty space) */
+    header .header-inner{
+        display: flex !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        gap: 12px !important;
     }
 
-    /* Facebook social button on mobile */
+    /* Social button - leftmost */
     .header-social-wrap {
+        order: 1 !important;
+        flex: 0 0 auto !important;
+    }
+
+    /* Logo - after hamburger */
+    #logoHome{
         order: 3;
-        margin-left: auto;
         flex: 0 0 auto;
+        margin-left: 8px;
         position: relative !important;
-        z-index: 2600 !important;
-        display: block !important;
+        z-index: 2500 !important;
     }
 
     nav{
@@ -1802,12 +1804,12 @@ body.quote-mode #quotePage select{
 /* ========================================
    MOBILE/DESKTOP VISIBILITY UTILITIES
 ======================================== */
-/* Desktop only - hidden on mobile */
+/* Desktop only - visible on desktop, hidden on mobile */
 .desktop-only {
     display: inline-flex !important;
 }
 
-/* Mobile only - hidden on desktop */
+/* Mobile only - hidden on desktop, visible on mobile */
 .mobile-only {
     display: none !important;
 }
@@ -1818,7 +1820,7 @@ body.quote-mode #quotePage select{
     }
     
     .mobile-only {
-        display: inline-flex !important;
+        display: flex !important;
     }
 }
 
@@ -1828,76 +1830,91 @@ body.quote-mode #quotePage select{
 .header-social-wrap {
     position: relative;
     z-index: 2600;
+    display: none;
+}
+
+/* Show on mobile only */
+@media (max-width: 860px) {
+    .header-social-wrap {
+        display: flex !important;
+        order: 1;
+        flex: 0 0 auto;
+    }
+}
+
+/* Hide on desktop */
+@media (min-width: 861px) {
+    .header-social-wrap {
+        display: none !important;
+    }
 }
 
 .header-social-btn {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-l));
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #1877F2, #0d65d9);
     color: #fff;
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 6px 18px rgba(2,132,199,0.35);
+    box-shadow: 0 4px 14px rgba(24,119,242,0.35);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     -webkit-tap-highlight-color: transparent;
 }
 
-.header-social-btn:hover {
+.header-social-btn:hover,
+.header-social-btn:active {
     transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(2,132,199,0.45);
+    box-shadow: 0 6px 18px rgba(24,119,242,0.45);
 }
 
 .header-social-btn svg {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
 }
 
 .header-social-panel {
     position: absolute;
-    top: calc(100% + 12px);
-    right: 0;
-    display: flex;
+    top: calc(100% + 10px);
+    left: 0;
+    display: none;
     flex-direction: column;
-    gap: 10px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px) scale(0.95);
-    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
-    pointer-events: none;
+    gap: 8px;
+    padding: 8px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    z-index: 3000;
 }
 
 .header-social-wrap.is-open .header-social-panel {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0) scale(1);
-    pointer-events: auto;
+    display: flex;
 }
 
 .header-social-item {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
     color: #fff;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: transform 0.15s ease;
 }
 
-.header-social-item:hover {
+.header-social-item:hover,
+.header-social-item:active {
     transform: scale(1.08);
-    box-shadow: 0 12px 28px rgba(0,0,0,0.25);
 }
 
 .header-social-item svg {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
 }
 
 .header-social-item.fb {
