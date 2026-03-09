@@ -96,6 +96,32 @@ window.addEventListener('load', () => {
         });
     }
 
+    /* ===== HEADER SOCIAL MENU (mobile only) ===== */
+    const headerSocialWrap = $('#headerSocialWrap');
+    const headerSocialBtn = $('#headerSocialBtn');
+    
+    if (headerSocialBtn && headerSocialWrap) {
+        headerSocialBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            headerSocialWrap.classList.toggle('is-open');
+        });
+        
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!headerSocialWrap.contains(e.target)) {
+                headerSocialWrap.classList.remove('is-open');
+            }
+        });
+        
+        // Close when clicking a link in the panel
+        headerSocialWrap.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => {
+                headerSocialWrap.classList.remove('is-open');
+            });
+        });
+    }
+
     /*
     $('#logoHome')?.addEventListener('click', (e) => {
         e.preventDefault();
