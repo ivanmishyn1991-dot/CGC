@@ -31,9 +31,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
 
-    <!-- Preconnect to external domains - only critical resources -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <!-- Facebook preconnect removed - pixel loads after interaction -->
+    <!-- Preconnect removed - FontAwesome now self-hosted -->
     <link rel="dns-prefetch" href="https://www.google.com">
     <link rel="dns-prefetch" href="https://www.gstatic.com">
 
@@ -93,15 +91,8 @@
         @media(max-width:768px){.aeo-hero{min-height:auto}.hero-container{min-height:auto}.aeo-hero h1{min-height:auto}.hero-lead{min-height:auto}}
     </style>
 
-    <!-- FontAwesome - Load only needed packages (solid + brands) instead of all.min.css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/solid.min.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/brands.min.css" media="print" onload="this.media='all'">
-    <noscript>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/solid.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/brands.min.css">
-    </noscript>
+    <!-- FontAwesome - Custom minimal build (only used icons) -->
+    <link rel="stylesheet" href="/assets/css/fa-custom.min.css">
 
     <!-- Preload critical images for LCP - optimized version -->
     <link rel="preload" href="/assets/images/logo-optimized.webp" as="image" type="image/webp" fetchpriority="high">
