@@ -38,7 +38,7 @@
 
     <!-- Preload critical resources -->
     <link rel="preload" href="/assets/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/assets/images/logo-optimized.webp" as="image" type="image/webp">
 
     <!-- Critical CSS with @font-face -->
@@ -47,6 +47,7 @@
         @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('/assets/fonts/inter-500.woff2') format('woff2')}
         @font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/inter-600.woff2') format('woff2')}
         @font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url('/assets/fonts/inter-700.woff2') format('woff2')}
+        @font-face{font-family:'Poppins';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/poppins-400.woff2') format('woff2')}
         @font-face{font-family:'Poppins';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/poppins-600.woff2') format('woff2')}
         @font-face{font-family:'Poppins';font-style:normal;font-weight:700;font-display:swap;src:url('/assets/fonts/poppins-700.woff2') format('woff2')}
         @font-face{font-family:'Poppins';font-style:normal;font-weight:800;font-display:swap;src:url('/assets/fonts/poppins-800.woff2') format('woff2')}
@@ -89,6 +90,10 @@
         .btn-price{padding:18px 36px;font-size:1.1rem;border-radius:999px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px}
         /* FontAwesome: reserve space before font loads */
         .fa,.fas,.far,.fab,.fa-solid,.fa-regular,.fa-brands,[class^="fa-"]{display:inline-block;width:1em;height:1em;line-height:1;vertical-align:-0.125em}
+        /* Inline critical FA icons to prevent CLS */
+        @font-face{font-family:'Font Awesome 6 Free';font-style:normal;font-weight:900;font-display:block;src:url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-solid-900.woff2') format('woff2')}
+        .fa-solid,.fas{font-family:'Font Awesome 6 Free';font-weight:900}
+        .fa-tag::before{content:"\f02b"}
     </style>
 
     <!-- FontAwesome - Load after page render to prevent CLS -->
