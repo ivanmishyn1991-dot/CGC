@@ -110,6 +110,23 @@ header {
     cursor: pointer;
     /* GPU-accelerated properties only */
     transition: transform 0.3s ease;
+    /* CLS Prevention: Reserve exact space for logo */
+    min-width: 189px;
+    min-height: 80px;
+}
+
+.logo a {
+    display: block;
+    width: 189px;
+    height: 80px;
+}
+
+.logo img {
+    width: 189px;
+    height: 80px;
+    aspect-ratio: 189 / 80;
+    object-fit: contain;
+    display: block;
 }
 
 .logo:hover {
