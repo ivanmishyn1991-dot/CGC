@@ -87,7 +87,8 @@
         /* FontAwesome: reserve space before font loads */
         .fa,.fas,.far,.fab,.fa-solid,.fa-regular,.fa-brands,[class^="fa-"]{display:inline-block;width:1em;height:1em;line-height:1;vertical-align:-0.125em}
         .btn-price i{width:16px;height:16px}
-        @media(max-width:768px){.aeo-hero{min-height:auto}.hero-container{min-height:auto}.aeo-hero h1{min-height:auto}.hero-lead{min-height:auto}}
+        /* Mobile: keep minimum heights to prevent CLS */
+        @media(max-width:768px){.hero-container{min-height:320px}.aeo-hero{min-height:400px}.aeo-hero h1{min-height:60px}.hero-lead{min-height:70px}}
     </style>
 
     <!-- FontAwesome - Load after page render to prevent CLS -->
