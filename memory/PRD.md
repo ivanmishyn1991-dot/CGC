@@ -58,7 +58,13 @@ Enhance and polish an existing cleaning service website built with PHP and Twig.
   - fa-regular-400.eot (40KB)
   - fa-solid-900.eot (168KB)
 - ✅ Updated fontawesome.min.css to reference only woff2/woff/ttf
-- **Total savings: ~1.7MB (75% reduction in admin webfonts folder)**
+- ✅ Compressed admin background images (~328KB saved):
+  - dash-bg-01.jpg: 214KB → 172KB (20%)
+  - dash-bg-02.jpg: 284KB → 216KB (24%)
+  - dash-bg-03.jpg: 369KB → 222KB (40%)
+  - product-image.jpg: 57KB → 8.5KB (85%)
+  - profile-image.png: 108KB → 86KB (20%)
+- **Total savings: ~2MB (fonts + images)**
 
 ## Current Status: USER VERIFICATION PENDING
 
@@ -100,7 +106,6 @@ TG_CHANNEL=[telegram_channel_id]
 
 ### P2 - Future/Backlog
 - [ ] Animate robot mascot (social-robot.png)
-- [ ] Optimize admin panel background images (~900KB in /admin/img/)
 
 ## Known Issues
 - Preview URL not working in Emergent environment (PHP project, not React/FastAPI)
