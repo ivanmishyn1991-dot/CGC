@@ -113,19 +113,6 @@ FileETag None
     Header set Connection keep-alive
 </IfModule>
 
-# ============================================
-# PRELOAD HINTS
-# ============================================
-<IfModule mod_headers.c>
-    <FilesMatch "\.html$|\.php$">
-        # Preload critical fonts
-        Header add Link "</assets/fonts/inter-400.woff2>; rel=preload; as=font; type=font/woff2; crossorigin"
-        Header add Link "</assets/fonts/poppins-600.woff2>; rel=preload; as=font; type=font/woff2; crossorigin"
-        # Preload critical images
-        Header add Link "</assets/images/logo-optimized.webp>; rel=preload; as=image; type=image/webp"
-    </FilesMatch>
-</IfModule>
-
 # Block access to sensitive files
 <FilesMatch "\.(env|git|htaccess|md|json|lock|log|sql|bak)$">
     Order allow,deny
