@@ -1,5 +1,9 @@
 DirectoryIndex index.php
 
+# ============================================
+# PERFORMANCE OPTIMIZATION - Target: 96+ PageSpeed
+# ============================================
+
 # Security Headers
 <IfModule mod_headers.c>
     Header set X-Frame-Options "SAMEORIGIN"
@@ -9,14 +13,43 @@ DirectoryIndex index.php
     Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
 </IfModule>
 
-# Enable compression
-<IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml
+# ============================================
+# BROTLI COMPRESSION (better than gzip)
+# ============================================
+<IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/xml text/css text/javascript
+    AddOutputFilterByType BROTLI_COMPRESS application/javascript application/json application/xml
+    AddOutputFilterByType BROTLI_COMPRESS application/x-javascript application/xhtml+xml
+    AddOutputFilterByType BROTLI_COMPRESS image/svg+xml application/x-font-ttf
+    AddOutputFilterByType BROTLI_COMPRESS font/opentype font/ttf font/woff font/woff2
+    BrotliCompressionQuality 11
 </IfModule>
 
-# Browser caching for static assets
+# ============================================
+# GZIP COMPRESSION (fallback if no brotli)
+# ============================================
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript
+    AddOutputFilterByType DEFLATE application/javascript application/json application/xml
+    AddOutputFilterByType DEFLATE application/x-javascript application/xhtml+xml
+    AddOutputFilterByType DEFLATE image/svg+xml application/x-font-ttf
+    AddOutputFilterByType DEFLATE font/opentype font/ttf font/woff font/woff2
+    
+    # Compression level (1-9, 9 = max compression)
+    DeflateCompressionLevel 9
+    
+    # Don't compress images (already compressed)
+    SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|webp)$ no-gzip dont-vary
+</IfModule>
+
+# ============================================
+# AGGRESSIVE BROWSER CACHING
+# ============================================
 <IfModule mod_expires.c>
     ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+    
+    # Images - 1 year
     ExpiresByType image/jpg "access plus 1 year"
     ExpiresByType image/jpeg "access plus 1 year"
     ExpiresByType image/png "access plus 1 year"
@@ -24,27 +57,77 @@ DirectoryIndex index.php
     ExpiresByType image/gif "access plus 1 year"
     ExpiresByType image/svg+xml "access plus 1 year"
     ExpiresByType image/x-icon "access plus 1 year"
-    ExpiresByType text/css "access plus 1 month"
-    ExpiresByType application/javascript "access plus 1 month"
-    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType image/vnd.microsoft.icon "access plus 1 year"
+    
+    # Fonts - 1 year
     ExpiresByType application/x-font-woff "access plus 1 year"
     ExpiresByType application/x-font-woff2 "access plus 1 year"
     ExpiresByType font/woff "access plus 1 year"
     ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+    
+    # CSS/JS - 1 year (use versioning for updates)
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType text/javascript "access plus 1 year"
+    ExpiresByType application/x-javascript "access plus 1 year"
+    
+    # HTML - short cache
+    ExpiresByType text/html "access plus 0 seconds"
 </IfModule>
 
-# Cache-Control headers
+# ============================================
+# CACHE-CONTROL HEADERS
+# ============================================
 <IfModule mod_headers.c>
-    <FilesMatch "\.(ico|jpg|jpeg|png|gif|webp|svg|woff|woff2)$">
-        Header set Cache-Control "max-age=31536000, public"
+    # Static assets - immutable, 1 year
+    <FilesMatch "\.(ico|jpg|jpeg|png|gif|webp|svg|woff|woff2|ttf|otf|eot)$">
+        Header set Cache-Control "max-age=31536000, public, immutable"
     </FilesMatch>
+    
+    # CSS/JS - 1 year with versioning
     <FilesMatch "\.(css|js)$">
-        Header set Cache-Control "max-age=2592000, public"
+        Header set Cache-Control "max-age=31536000, public, immutable"
+    </FilesMatch>
+    
+    # HTML - no cache (always fresh)
+    <FilesMatch "\.(html|php)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+    
+    # Remove ETags (not needed with far-future expires)
+    Header unset ETag
+</IfModule>
+FileETag None
+
+# ============================================
+# KEEP-ALIVE CONNECTIONS
+# ============================================
+<IfModule mod_headers.c>
+    Header set Connection keep-alive
+</IfModule>
+
+# ============================================
+# PRELOAD HINTS
+# ============================================
+<IfModule mod_headers.c>
+    <FilesMatch "\.html$|\.php$">
+        # Preload critical fonts
+        Header add Link "</assets/fonts/inter-400.woff2>; rel=preload; as=font; type=font/woff2; crossorigin"
+        Header add Link "</assets/fonts/poppins-600.woff2>; rel=preload; as=font; type=font/woff2; crossorigin"
+        # Preload critical images
+        Header add Link "</assets/images/logo-optimized.webp>; rel=preload; as=image; type=image/webp"
     </FilesMatch>
 </IfModule>
 
 # Block access to sensitive files
-<FilesMatch "\.(env|git|htaccess|md|json|lock)$">
+<FilesMatch "\.(env|git|htaccess|md|json|lock|log|sql|bak)$">
     Order allow,deny
     Deny from all
 </FilesMatch>
