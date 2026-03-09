@@ -11,7 +11,7 @@ $env->load(__DIR__ . "/../.env");
 
 $config = ORMSetup::createAttributeMetadataConfiguration(
     paths: [__DIR__ . '/../app/Entities'],
-    isDevMode: true,
+    isDevMode: false,
 );
 
 $connection = DriverManager::getConnection([
