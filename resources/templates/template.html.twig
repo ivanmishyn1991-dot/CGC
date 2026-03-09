@@ -580,13 +580,20 @@
             document.head.appendChild(script);
         }
         
-        // Load when user scrolls near quote section or clicks quote link
+        // Load when user clicks quote link or interacts with form
         var quoteLinks = document.querySelectorAll('[data-page-link="quote"], [href="#quote"], [href="/#quote"]');
         quoteLinks.forEach(function(link) {
             link.addEventListener('click', loadRecaptcha);
         });
         
-        // Also load on scroll if quote section becomes visible
+        // Load when user interacts with any form input
+        document.addEventListener('focusin', function(e) {
+            if (e.target.matches('input, textarea, select')) {
+                loadRecaptcha();
+            }
+        }, { once: true });
+        
+        // Load on scroll only when quote section is about to be visible
         var observer = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
@@ -594,13 +601,16 @@
                     observer.disconnect();
                 }
             });
-        }, { rootMargin: '200px' });
+        }, { rootMargin: '100px' });
         
         var quotePage = document.getElementById('quotePage');
         if (quotePage) observer.observe(quotePage);
         
-        // Fallback: load after 5 seconds anyway
-        setTimeout(loadRecaptcha, 5000);
+        // Also observe the g-recaptcha element directly
+        var recaptchaEl = document.querySelector('.g-recaptcha');
+        if (recaptchaEl) observer.observe(recaptchaEl);
+        
+        // NO automatic fallback - only load when user needs it
     })();
     </script>
 {% endblock %}

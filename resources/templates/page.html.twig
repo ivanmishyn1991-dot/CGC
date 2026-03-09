@@ -481,8 +481,14 @@ window.addEventListener('load', function() {
         el.addEventListener('focus', loadRecaptcha, { once: true });
     });
     
-    // Fallback: load after 5 seconds
-    setTimeout(loadRecaptcha, 5000);
+    // Load when user interacts with any form input
+    document.addEventListener('focusin', function(e) {
+        if (e.target.matches('input, textarea, select')) {
+            loadRecaptcha();
+        }
+    }, { once: true });
+    
+    // NO automatic fallback - only load when user needs it
 })();
 </script>
 

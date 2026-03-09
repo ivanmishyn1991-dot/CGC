@@ -82,6 +82,15 @@ Enhance and polish an existing cleaning service website built with PHP and Twig.
 - ✅ Added `will-change: transform` to animated elements for GPU optimization
 - ✅ Updated minified CSS files (style.min.css, main-page.min.css)
 
+### reCAPTCHA Lazy Loading Optimization (Dec 9, 2025)
+- ✅ Removed automatic 5-second fallback that was loading reCAPTCHA even without user interaction
+- ✅ reCAPTCHA now loads ONLY when:
+  - User clicks on quote links
+  - User focuses on any form input (focusin event)
+  - Quote section becomes visible (IntersectionObserver with 100px margin)
+- ✅ Updated both template.html.twig and page.html.twig
+- **Expected impact:** TBT should drop from ~370ms to near 0ms
+
 ## Current Status: USER VERIFICATION PENDING
 
 The user needs to run a new Google PageSpeed Insights test to verify:
