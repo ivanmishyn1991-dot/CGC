@@ -25,6 +25,8 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    /* CLS Prevention: Reserve minimum height for h1 */
+    min-height: 80px;
 }
 .aeo-hero .hero-lead {
     max-width: 920px;
@@ -33,6 +35,8 @@
     color: #334155;
     margin: 0 auto 22px;
     text-align: center;
+    /* CLS Prevention: Reserve minimum height */
+    min-height: 90px;
 }
 .aeo-hero .hero-points {
     display: flex;

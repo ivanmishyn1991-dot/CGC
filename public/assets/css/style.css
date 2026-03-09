@@ -73,7 +73,15 @@ h1, h2, h3 { font-family: 'Poppins', sans-serif; line-height: 1.25; }
     text-align: center;
     padding-bottom: 40px;
     /* Contain layout to prevent CLS propagation */
-    contain: layout style;
+    contain: layout style paint;
+    /* Reserve exact space for desktop */
+    min-height: 380px;
+}
+
+@media (max-width: 768px) {
+    .hero-container {
+        min-height: auto;
+    }
 }
 
 header {
