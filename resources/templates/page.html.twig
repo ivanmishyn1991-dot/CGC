@@ -8,22 +8,34 @@
     <meta name="description" content="Gutter cleaning, window washing, moss removal and more services in Metro Vancouver"/>
     
     <!-- Preconnect to external domains -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="dns-prefetch" href="https://connect.facebook.net">
+    
+    <!-- Preload critical fonts (self-hosted) -->
+    <link rel="preload" href="/assets/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/inter-600.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/inter-700.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
     
     <!-- Preload critical images for LCP -->
     <link rel="preload" href="/assets/images/logo.webp" as="image" type="image/webp" fetchpriority="high">
     
-    <!-- Critical CSS inline -->
+    <!-- Critical CSS with @font-face -->
     <style>
+        @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/inter-400.woff2') format('woff2')}
+        @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('/assets/fonts/inter-500.woff2') format('woff2')}
+        @font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/inter-600.woff2') format('woff2')}
+        @font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url('/assets/fonts/inter-700.woff2') format('woff2')}
+        @font-face{font-family:'Poppins';font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/poppins-600.woff2') format('woff2')}
+        @font-face{font-family:'Poppins';font-style:normal;font-weight:700;font-display:swap;src:url('/assets/fonts/poppins-700.woff2') format('woff2')}
+        @font-face{font-family:'Poppins';font-style:normal;font-weight:800;font-display:swap;src:url('/assets/fonts/poppins-800.woff2') format('woff2')}
         :root{--primary:#0284c7;--primary-d:#0369a1;--primary-l:#38bdf8;--accent:#fbbf24;--bg-light:#f0f9ff;--gray-1:#f8fafc;--gray-6:#475569;--gray-8:#0f172a;--radius:16px;--headerH:96px}
         *{box-sizing:border-box;margin:0;padding:0}
         html{scroll-behavior:smooth}
         body{font-family:'Inter',system-ui,sans-serif;background:var(--bg-light);color:var(--gray-8);line-height:1.65;overflow-x:hidden}
         .container{max-width:1180px;margin:0 auto;padding:0 20px}
-        h1,h2,h3{font-family:Poppins,sans-serif;line-height:1.25}
+        h1,h2,h3{font-family:'Poppins',sans-serif;line-height:1.25}
         header{position:sticky;top:0;z-index:1000;height:var(--headerH);background:#fff;box-shadow:0 6px 20px rgba(2,132,199,.12)}
         .header-inner{display:flex;align-items:center;justify-content:space-between;height:var(--headerH);gap:16px}
         .logo{cursor:pointer}.logo img{height:80px;width:auto}
@@ -39,10 +51,6 @@
         @media(max-width:860px){.cgc-robot-btn{width:clamp(170px,34vw,220px);height:clamp(170px,34vw,220px)}}
     </style>
     
-    <!-- Google Fonts - Non-blocking -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet"></noscript>
-
     <!-- FontAwesome - Deferred -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
