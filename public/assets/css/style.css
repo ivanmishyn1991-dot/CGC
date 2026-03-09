@@ -351,8 +351,9 @@ h2 {
     -webkit-text-fill-color: transparent;
 }
 
-.reveal { opacity:0; transform: translateY(40px); transition: all 1s ease; }
-.reveal.active { opacity:1; transform: translateY(0); }
+/* CLS-safe reveal animation - opacity only, no transform to prevent layout shifts */
+.reveal { opacity:0; transition: opacity 0.8s ease; }
+.reveal.active { opacity:1; }
 
 .cta-row{
     display:flex;

@@ -79,10 +79,20 @@
         .cgc-robot-btn{pointer-events:auto;border:0;background:0 0;padding:0;cursor:pointer;width:240px;height:240px;position:relative}
         .cgc-robot-img{width:100%;height:100%;object-fit:contain;display:block}
         @media(max-width:860px){.cgc-robot-btn{width:clamp(170px,34vw,220px);height:clamp(170px,34vw,220px)}}
+        /* CLS Prevention: Reserve space for fonts */
+        .aeo-hero{min-height:480px}
+        .aeo-hero h1{min-height:1.2em}
+        .hero-lead{min-height:3em}
+        .hero-points{min-height:50px}
+        nav a{min-width:60px;min-height:40px}
+        /* FontAwesome icon placeholder sizes */
+        .fa,.fas,.far,.fab,.fa-solid,.fa-regular,.fa-brands,[class^="fa-"]{display:inline-block;width:1em;height:1em;line-height:1;vertical-align:-0.125em}
+        .btn-price i{width:16px;height:16px}
+        @media(max-width:768px){.aeo-hero{min-height:auto}}
     </style>
 
-    <!-- FontAwesome - Deferred loading -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <!-- FontAwesome - Load after page render to prevent CLS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 
     <!-- Preload critical images for LCP -->
