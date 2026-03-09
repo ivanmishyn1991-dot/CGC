@@ -31,3 +31,7 @@ Thumbs.db
 # Uploads (user content)
 /public/uploads/*
 !/public/uploads/.gitkeep
+-e 
+# Environment files
+*.env
+*.env.*

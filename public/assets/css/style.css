@@ -68,10 +68,12 @@ body.modal-open { overflow: hidden; }
 h1, h2, h3 { font-family: 'Poppins', sans-serif; line-height: 1.25; }
 .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
 
-/* Hero container - removed fixed height to prevent iOS Safari jumping */
+/* Hero container - CLS prevention with contain */
 .hero-container {
     text-align: center;
     padding-bottom: 40px;
+    /* Contain layout to prevent CLS propagation */
+    contain: layout style;
 }
 
 header {
@@ -106,29 +108,35 @@ header {
     user-select: none;
     white-space: nowrap;
     cursor: pointer;
-    transition: all 0.3s ease;
+    /* GPU-accelerated properties only */
+    transition: transform 0.3s ease;
 }
 
 .logo:hover {
     transform: translateY(-3px);
-    filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.5));
 }
 
-nav { display: flex; gap: 40px; align-items: center; }
+nav { display: flex; gap: 40px; align-items: center; min-height: 48px; }
 nav a {
     color: var(--gray-8);
     text-decoration: none;
     font-weight: 600;
     font-size: 1.1rem;
-    transition: all 0.3s ease;
+    /* GPU-accelerated properties only */
+    transition: transform 0.3s ease, color 0.3s ease;
     white-space: nowrap;
     padding: 8px 12px;
     border-radius: 8px;
+    /* Reserve minimum space to prevent CLS */
+    min-width: 60px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 nav a:hover, nav a.active { 
     color: var(--primary);
     transform: translateY(-3px);
-    text-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
 }
 
 /* ===== Header buttons (base) ===== */
@@ -288,8 +296,9 @@ nav a:hover, nav a.active {
         height: 58px;
         padding: 10px 18px;
         border-radius: 999px;
-        animation: headerGlow 2.6s infinite ease-in-out;
+        /* Removed infinite animation to prevent CLS/repaint */
         z-index: 1001;
+        will-change: transform;
     }
 
     header .btn-email{
@@ -464,14 +473,14 @@ h2 {
     font-size: 0.98rem;
     box-shadow: 0 10px 24px rgba(2,132,199,0.10);
     white-space: nowrap;
-    /* Optimized transition - only transform and box-shadow are GPU-accelerated */
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    /* GPU-accelerated properties only to prevent CLS */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: default;
+    will-change: transform;
 }
 
 .trust-pill:hover {
     transform: translateY(-4px);
-    border-color: var(--accent);
     box-shadow: 0 10px 30px rgba(251, 191, 36, 0.35), 0 0 15px rgba(251, 191, 36, 0.4);
 }
 
@@ -494,15 +503,16 @@ h2 {
     border-radius: var(--radius);
     box-shadow: var(--shadow-sm);
     padding: 40px 32px;
-    transition: all 0.38s ease;
+    /* GPU-accelerated properties only to prevent CLS */
+    transition: transform 0.38s ease, box-shadow 0.38s ease;
     border: 1px solid transparent;
     cursor: pointer;
     text-decoration: none;
+    will-change: transform;
 }
 
 .service-card:hover {
     transform: translateY(-8px);
-    border-color: var(--accent);
     box-shadow: 0 10px 30px rgba(251, 191, 36, 0.35), 0 0 15px rgba(251, 191, 36, 0.4);
 }
 
@@ -530,12 +540,13 @@ h2 {
     box-shadow: var(--shadow-sm);
     border: 1px solid transparent;
     overflow:hidden;
-    transition: all 0.38s ease;
+    /* GPU-accelerated properties only to prevent CLS */
+    transition: transform 0.38s ease, box-shadow 0.38s ease;
+    will-change: transform;
 }
 
 .faq-item:hover {
     transform: translateY(-4px);
-    border-color: var(--accent);
     box-shadow: 0 10px 30px rgba(251, 191, 36, 0.35), 0 0 15px rgba(251, 191, 36, 0.4);
 }
 
@@ -683,14 +694,15 @@ h2 {
     text-align: center; 
     font-weight: 800; 
     border: 1px solid var(--primary-l); 
-    transition: all 0.38s ease;
+    /* GPU-accelerated properties only */
+    transition: transform 0.38s ease, box-shadow 0.38s ease;
     text-decoration: none;
     color: inherit;
     display: block;
+    will-change: transform;
 }
 .city:hover {
     transform: translateY(-4px);
-    border-color: var(--accent);
     box-shadow: 0 10px 30px rgba(251, 191, 36, 0.35), 0 0 15px rgba(251, 191, 36, 0.4);
 }
 

@@ -115,12 +115,13 @@
     border-radius: var(--radius);
     padding: 28px 24px;
     box-shadow: 0 4px 12px rgba(2,132,199,0.08);
-    transition: all 0.38s ease;
+    /* GPU-accelerated properties only to prevent CLS */
+    transition: transform 0.38s ease, box-shadow 0.38s ease;
     cursor: default;
+    will-change: transform;
 }
 .answer-card:hover {
     transform: translateY(-4px);
-    border-color: var(--accent);
     box-shadow: 0 10px 30px rgba(251, 191, 36, 0.35), 0 0 15px rgba(251, 191, 36, 0.4);
 }
 .answer-card h3 {
@@ -155,12 +156,13 @@
     color: var(--gray-6);
     font-weight: 600;
     box-shadow: 0 4px 12px rgba(2,132,199,0.08);
-    transition: all 0.38s ease;
+    /* GPU-accelerated properties only to prevent CLS */
+    transition: transform 0.38s ease, box-shadow 0.38s ease;
     cursor: default;
+    will-change: transform;
 }
 .include-item:hover {
     transform: translateY(-4px);
-    border-color: var(--accent);
     box-shadow: 0 10px 30px rgba(251, 191, 36, 0.35), 0 0 15px rgba(251, 191, 36, 0.4);
 }
 @media (max-width: 860px) {
@@ -335,9 +337,11 @@
     font-weight: 700;
     border-radius: 50px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    /* GPU-accelerated properties only */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);
-    animation: softGlow 2s ease-in-out infinite;
+    /* Removed infinite animation to prevent CLS */
+    will-change: transform;
 }
 
 /* PC: увеличить кнопки на 30% */
@@ -374,10 +378,12 @@
     font-weight: 700;
     border-radius: 50px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    /* GPU-accelerated properties only */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 20px rgba(249, 115, 22, 0.4);
-    animation: orangeGlow 2s ease-in-out infinite;
+    /* Removed infinite animation to prevent CLS */
     font-family: inherit;
+    will-change: transform;
 }
 
 /* PC: увеличить кнопки на 30% и сделать одинаковыми */

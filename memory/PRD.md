@@ -48,7 +48,7 @@ Enhance and polish an existing cleaning service website built with PHP and Twig.
 - ✅ Fixed `.gitignore` to properly exclude `vendor/` and `.emergent/`
 - ✅ Removed `.emergent/` from git tracking
 
-### Admin Panel Optimization (Current Session - Dec 9, 2025)
+### Admin Panel Optimization (Dec 9, 2025)
 - ✅ Removed SVG font files (~1.4MB saved):
   - fa-brands-400.svg (616KB)
   - fa-regular-400.svg (139KB)
@@ -66,12 +66,28 @@ Enhance and polish an existing cleaning service website built with PHP and Twig.
   - profile-image.png: 108KB → 86KB (20%)
 - **Total savings: ~2MB (fonts + images)**
 
+### CLS Optimization (Dec 9, 2025 - Current Session)
+- ✅ Fixed non-composited animations in CSS:
+  - Removed `transition: all` from `.service-card`, `.faq-item`, `.answer-card`, `.include-item`, `.city`
+  - Changed to GPU-accelerated properties only: `transform`, `box-shadow`
+  - Removed `border-color` transitions (causes repaint)
+- ✅ Removed infinite animations from buttons:
+  - `@keyframes orangeGlow` removed from `.btn-price`
+  - `@keyframes softGlow` removed from `.btn-callback`
+  - `@keyframes headerGlow` removed from header buttons
+- ✅ Added CLS containment to `.hero-container` with `contain: layout style`
+- ✅ Fixed navigation CLS:
+  - Added `min-height: 48px` to nav
+  - Added `min-width: 60px`, `min-height: 40px` to nav links
+- ✅ Added `will-change: transform` to animated elements for GPU optimization
+- ✅ Updated minified CSS files (style.min.css, main-page.min.css)
+
 ## Current Status: USER VERIFICATION PENDING
 
 The user needs to run a new Google PageSpeed Insights test to verify:
-1. CLS score improvement
+1. CLS score improvement (target: < 0.1)
 2. Overall performance score (target: 80+)
-3. Admin panel still works correctly after font optimization
+3. All functionality still works (forms, Telegram, buttons)
 
 ## API Endpoints
 - `POST /quick-quote` - Quick quote form submission
