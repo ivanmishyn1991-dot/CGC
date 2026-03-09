@@ -7,6 +7,8 @@ Flight::route('/', ['App\Controllers\MainController', 'index']);
 
 Flight::route('/quote', ['App\Controllers\MainController', 'quotePage']);
 
+Flight::route('/areas', ['App\Controllers\MainController', 'areasPage']);
+
 Flight::route('/cities/@city', ['App\Controllers\MainController', 'cityPage']);
 
 Flight::route('/test', ['App\Controllers\MainController', 'test']);

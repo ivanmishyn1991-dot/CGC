@@ -14,6 +14,11 @@ class MainController extends Controller
         $this->view->display('landing/quote.html.twig');
     }
 
+    public function areasPage() : void
+    {
+        $this->view->display('landing/areas.html.twig');
+    }
+
     public function page($route) : bool
     {
         $file = current(explode('?', $route->splat, 2));

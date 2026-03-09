@@ -445,7 +445,7 @@
 
 
 <!-- CGC Robot (inserted into main file) -->
-<div class="cgc-robot-wrap" id="cgcRobotWrap" aria-label="CGC Robot contact widget">
+<div class="cgc-robot-wrap" id="cgcRobotWrap" aria-label="CGC Robot contact widget" data-desktop-only="true">
     <div class="cgc-social-panel" aria-label="Quick contacts">
         <a class="cgc-social-item fb" href="https://www.facebook.com/profile.php?id=61587613647830" target="_blank" rel="noopener" aria-label="Facebook">
             <i class="fa-brands fa-facebook-f"></i>
@@ -545,6 +545,16 @@
 
 {% block scripts %}
     <script src="/assets/js/app.min.js?rand={{ random() }}"></script>
+    
+    <!-- Remove robot widget on mobile for better performance -->
+    <script>
+    (function() {
+        if (window.innerWidth <= 860) {
+            var robotWrap = document.getElementById('cgcRobotWrap');
+            if (robotWrap) robotWrap.remove();
+        }
+    })();
+    </script>
     
     <!-- Deferred Facebook Pixel - loads after page is ready -->
     <script>

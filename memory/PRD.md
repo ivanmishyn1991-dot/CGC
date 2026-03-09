@@ -1,142 +1,149 @@
 # Clean Gutters Crew - Cleaning Services Website
 
 ## Original Problem Statement
-Enhance and polish an existing cleaning service website built with PHP and Twig. Primary goals:
-1. Achieve Google PageSpeed score of 80+ for both mobile and desktop
-2. Eliminate font loading "jumps" (FOUT) that cause Cumulative Layout Shift (CLS)
-3. Keep repository clean of unnecessary files
+Optimize and refactor a PHP/Twig cleaning service website (cgc-services.ca) to:
+1. Achieve Google PageSpeed score of 90-95+ for mobile version
+2. Declutter mobile UI for better performance
+3. Maintain SEO structure and desktop functionality
 
 ## Tech Stack
 - **Backend:** PHP 8.x with FlightPHP framework
 - **Templating:** Twig
 - **Frontend:** Vanilla JavaScript, CSS, HTML
 - **Database:** MySQL (via Doctrine ORM)
-- **Integrations:** Telegram API (notifications), Google reCAPTCHA
+- **Integrations:** Telegram API (notifications), Google reCAPTCHA, Cloudflare CDN
 
 ## Project Structure
 ```
 /app/
-├── app/                  # PHP Controllers, Middleware, Services
+├── app/
+│   └── Controllers/
+│       └── MainController.php    # Routes: index, quotePage, areasPage, cityPage
 ├── public/
 │   ├── assets/
-│   │   ├── css/          # Main stylesheets (style.css, main-page.css)
-│   │   ├── js/           # JavaScript (app.js)
-│   │   ├── images/       # Site images
-│   │   └── fonts/        # Self-hosted Inter fonts (latin subset)
-│   ├── admin/            # Admin panel assets (OPTIMIZED)
-│   │   ├── css/          # fontawesome.min.css (updated)
-│   │   └── webfonts/     # FontAwesome fonts (SVG/EOT removed)
-│   └── index.php         # Main router
+│   │   ├── css/                  # style.css, main-page.css, style.min.css
+│   │   ├── js/                   # app.js, app.min.js
+│   │   ├── images/               # logo-optimized.webp, social-robot-small.webp
+│   │   └── fonts/                # Self-hosted Inter/Poppins fonts (woff2)
+│   └── index.php                 # Main router (routes: /, /quote, /areas, /cities/*)
 ├── resources/
-│   └── templates/        # Twig templates
-├── .env                  # Environment configuration
-├── .gitignore            # Updated to exclude vendor/, .emergent/
-└── composer.json
+│   └── templates/
+│       ├── landing/
+│       │   ├── main.html.twig        # Homepage
+│       │   ├── quote.html.twig       # Quote form page
+│       │   ├── areas.html.twig       # Service areas page (NEW)
+│       │   └── components/
+│       │       └── header.html.twig  # Header with mobile-only/desktop-only elements
+│       └── template.html.twig        # Base template
+├── .htaccess                     # Apache config (CAUTION: sensitive to changes)
+└── .env
 ```
 
 ## What's Been Implemented
 
-### Performance Optimizations (Previous Agent)
-- ✅ Replaced oversized Inter font files with correct latin subsets
-- ✅ Fixed CSS animations to reduce CLS (removed transform from .reveal)
-- ✅ Added `.active` class to hero and sections for instant visibility
-- ✅ Deferred FontAwesome and Facebook Pixel loading
-- ✅ Optimized CSS transitions (specific properties vs `transition: all`)
-- ✅ Updated minified assets (.min.css, .min.js)
+### Mobile UI Decluttering (Dec 9, 2025 - Current Session)
+- ✅ **Robot Widget Removed on Mobile:**
+  - JS script removes `.cgc-robot-wrap` from DOM when `window.innerWidth <= 860`
+  - No images loaded, no JS executed, no overlay on mobile
+  - Desktop: works unchanged
+  
+- ✅ **Call Button Hidden on Mobile:**
+  - `#headerPhoneBtn` has `desktop-only` class
+  - Mobile header shows hamburger + logo + Facebook icon only
+  
+- ✅ **Facebook SVG Icon Added to Mobile Header:**
+  - Inline SVG (no FontAwesome dependency)
+  - `mobile-only` class - displays only on mobile
+  - Links to business Facebook page
+  
+- ✅ **Separate /areas Page Created:**
+  - Template: `resources/templates/landing/areas.html.twig`
+  - Route: `Flight::route('/areas', ...)`
+  - Controller: `MainController::areasPage()`
+  - Contains full grid of service areas with links to city pages
+  
+- ✅ **Cities Modal Removed from Homepage:**
+  - `#citiesModal` removed from `main.html.twig`
+  - JS modal triggers removed from `app.js`
+  - Service areas bar now links directly to `/areas`
 
-### Repository Cleanup (Previous Agent)
-- ✅ Fixed `.gitignore` to properly exclude `vendor/` and `.emergent/`
-- ✅ Removed `.emergent/` from git tracking
+### CSS Utility Classes Added
+- `.desktop-only` - `display: inline-flex` on desktop, `display: none` on mobile
+- `.mobile-only` - `display: none` on desktop, `display: inline-flex` on mobile
+- `.header-social-fb` - Facebook icon button styling
+- `.areas-page-section`, `.areas-grid`, `.area-card` - Areas page styling
 
-### Admin Panel Optimization (Dec 9, 2025)
-- ✅ Removed SVG font files (~1.4MB saved):
-  - fa-brands-400.svg (616KB)
-  - fa-regular-400.svg (139KB)
-  - fa-solid-900.svg (613KB)
-- ✅ Removed EOT font files (~325KB saved):
-  - fa-brands-400.eot (116KB)
-  - fa-regular-400.eot (40KB)
-  - fa-solid-900.eot (168KB)
-- ✅ Updated fontawesome.min.css to reference only woff2/woff/ttf
-- ✅ Compressed admin background images (~328KB saved):
-  - dash-bg-01.jpg: 214KB → 172KB (20%)
-  - dash-bg-02.jpg: 284KB → 216KB (24%)
-  - dash-bg-03.jpg: 369KB → 222KB (40%)
-  - product-image.jpg: 57KB → 8.5KB (85%)
-  - profile-image.png: 108KB → 86KB (20%)
-- **Total savings: ~2MB (fonts + images)**
+### Previous Optimizations (Before This Session)
+- Quote form moved to separate `/quote` page
+- Critical CSS inlined in `<head>`
+- Font preloading with `font-display: optional`
+- reCAPTCHA lazy loading (only when needed)
+- Facebook Pixel deferred loading
+- Image optimization (WebP, srcset for logo)
+- FontAwesome loaded via `media="print"` onload trick
 
-### CLS Optimization (Dec 9, 2025 - Current Session)
-- ✅ Fixed non-composited animations in CSS:
-  - Removed `transition: all` from `.service-card`, `.faq-item`, `.answer-card`, `.include-item`, `.city`
-  - Changed to GPU-accelerated properties only: `transform`, `box-shadow`
-  - Removed `border-color` transitions (causes repaint)
-- ✅ Removed infinite animations from buttons:
-  - `@keyframes orangeGlow` removed from `.btn-price`
-  - `@keyframes softGlow` removed from `.btn-callback`
-  - `@keyframes headerGlow` removed from header buttons
-- ✅ Added CLS containment to `.hero-container` with `contain: layout style`
-- ✅ Fixed navigation CLS:
-  - Added `min-height: 48px` to nav
-  - Added `min-width: 60px`, `min-height: 40px` to nav links
-- ✅ Added `will-change: transform` to animated elements for GPU optimization
-- ✅ Updated minified CSS files (style.min.css, main-page.min.css)
+## Current Status
 
-### reCAPTCHA Lazy Loading Optimization (Dec 9, 2025)
-- ✅ Removed automatic 5-second fallback that was loading reCAPTCHA even without user interaction
-- ✅ reCAPTCHA now loads ONLY when:
-  - User clicks on quote links
-  - User focuses on any form input (focusin event)
-  - Quote section becomes visible (IntersectionObserver with 100px margin)
-- ✅ Updated both template.html.twig and page.html.twig
-- **Expected impact:** TBT should drop from ~370ms to near 0ms
+### Completed
+- ✅ Robot widget removed on mobile (not just hidden - fully removed from DOM)
+- ✅ Call button hidden on mobile
+- ✅ Facebook SVG icon in header (mobile only)
+- ✅ /areas page created
+- ✅ Cities modal removed from homepage
+- ✅ Header links to /areas work correctly
 
-## Current Status: USER VERIFICATION PENDING
+### User Verification Required
+- [ ] Deploy files to production server
+- [ ] Verify all city links work: `/cities/vancouver`, `/cities/surrey`, etc.
+- [ ] Verify anchor links work: `/#about`, `/#services`, `/#faq`
+- [ ] Verify robot widget works on desktop
+- [ ] Run PageSpeed Insights to check improvement
 
-The user needs to run a new Google PageSpeed Insights test to verify:
-1. CLS score improvement (target: < 0.1)
-2. Overall performance score (target: 80+)
-3. All functionality still works (forms, Telegram, buttons)
-
-## API Endpoints
-- `POST /quick-quote` - Quick quote form submission
-- `POST /applications` - Full application submission
+## Routes
+- `GET /` - Homepage
+- `GET /quote` - Quote form page
+- `GET /areas` - Service areas page (NEW)
+- `GET /cities/{city}` - City-specific pages
+- `POST /applications` - Form submission
+- `POST /quick-quote` - Quick callback form
 - `POST /upload/photos` - Photo upload
 - `DELETE /upload/photos` - Photo deletion
-- `GET /admin/login` - Admin login page
-- `POST /admin/login` - Admin authentication
 
-## Environment Variables (.env)
-```
-PROJECT_NAME=cgc_landing
-DEV_MODE=1
-DB_CONNECTION=pdo_mysql
-DB_HOST=localhost
-DB_DATABASE=db
-DB_USERNAME=username
-DB_PASSWORD=password
-TG_TOKEN=[telegram_bot_token]
-TG_CHANNEL=[telegram_channel_id]
-```
+## Files Changed in This Session
+1. `app/Controllers/MainController.php` - Added `areasPage()` method
+2. `public/index.php` - Added `/areas` route
+3. `public/assets/css/style.css` - Added mobile-only/desktop-only classes, areas page styles
+4. `public/assets/css/style.min.css` - Minified version
+5. `public/assets/js/app.js` - Removed cities modal triggers
+6. `public/assets/js/app.min.js` - Minified version
+7. `resources/templates/landing/main.html.twig` - Removed citiesModal, updated areas bar
+8. `resources/templates/landing/components/header.html.twig` - Already had desktop-only/mobile-only
+9. `resources/templates/landing/areas.html.twig` - NEW file
+10. `resources/templates/template.html.twig` - Already had robot removal script
 
 ## Pending Tasks
 
-### P0 - Critical
-- [ ] User to verify PageSpeed scores (mobile & desktop)
-- [ ] User to verify admin panel works correctly
+### P0 - Critical (User Action Required)
+- [ ] Deploy to production and verify functionality
+- [ ] Run PageSpeed Insights test (target: 90-95+ mobile)
+- [ ] Verify CLS < 0.03
 
-### P1 - Important (if PageSpeed not improved)
-- [ ] Further CLS optimization based on new reports
-- [ ] Additional third-party script optimization
+### P1 - Performance Optimization (if scores not improved)
+- [ ] Further LCP optimization based on new reports
+- [ ] Critical CSS refinement
+- [ ] JS deferral optimization
 
 ### P2 - Future/Backlog
-- [ ] Animate robot mascot (social-robot.png)
+- [ ] Re-implement button visual effects (glows, hover animations) after score achieved
+- [ ] Animate robot mascot (desktop only)
 
-## Known Issues
-- Preview URL not working in Emergent environment (PHP project, not React/FastAPI)
-- This is expected - project should be tested on actual hosting
+## Environment Notes
+- **Preview URL not working** - This is a PHP project, Emergent preview runs Python/FastAPI
+- **Test on production server** - User deploys via FTP to their hosting
+- **.htaccess is sensitive** - User's shared hosting doesn't support all Apache modules
 
 ## 3rd Party Integrations
-- Telegram API (for form notifications)
-- Google reCAPTCHA (form validation - identified as performance blocker)
-- Facebook Pixel (deferred loading implemented)
+- Telegram API (form notifications)
+- Google reCAPTCHA (lazy loaded)
+- Facebook Pixel (deferred)
+- Cloudflare CDN (active)

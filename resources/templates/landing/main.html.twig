@@ -205,9 +205,9 @@
         <section id="areas" class="reveal active" style="background:transparent;">
             <div class="container">
                 <h2>Service Areas</h2>
-                <div class="service-areas-bar" id="areasTrigger">
-                    We serve all of Metro Vancouver ▸ Tap to see the full list
-                </div>
+                <a href="/areas" class="service-areas-bar">
+                    We serve all of Metro Vancouver ▸ View all service areas
+                </a>
             </div>
         </section>
     </main>
@@ -216,33 +216,4 @@
 {% endblock %}
 
 {% block modals %}
-    <div class="modal" id="citiesModal" aria-hidden="true">
-        <div class="modal-content" role="dialog" aria-modal="true" aria-label="Service Areas">
-            <div class="modal-header">
-                <h3>Metro Vancouver Communities We Serve</h3>
-                <button class="modal-close" type="button" aria-label="Close">×</button>
-            </div>
-            <div class="modal-body">
-                <div class="cities-grid">
-                    <a class="city" href="/cities/vancouver">Vancouver</a>
-                    <a class="city" href="/cities/burnaby">Burnaby</a>
-                    <a class="city" href="/cities/surrey">Surrey</a>
-                    <a class="city" href="/cities/richmond">Richmond</a>
-                    <a class="city" href="/cities/coquitlam">Coquitlam</a>
-                    <a class="city" href="/cities/langley">Langley</a>
-                    <a class="city" href="/cities/delta">Delta</a>
-                    <a class="city" href="/cities/new_westminster">New Westminster</a>
-                    <a class="city" href="/cities/north_vancouver">North Vancouver</a>
-                    <a class="city" href="/cities/west_vancouver">West Vancouver</a>
-                    <a class="city" href="/cities/maple_ridge">Maple Ridge</a>
-                    <a class="city" href="/cities/pitt_meadows">Pitt Meadows</a>
-                    <a class="city" href="/cities/port_coquitlam">Port Coquitlam</a>
-                    <a class="city" href="/cities/port_moody">Port Moody</a>
-                    <a class="city" href="/cities/white_rock">White Rock</a>
-                    <a class="city" href="/cities/tsawwassen">Tsawwassen</a>
-                    <a class="city" href="/cities/ladner">Ladner</a>
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock %}

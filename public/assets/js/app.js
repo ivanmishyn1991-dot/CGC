@@ -147,25 +147,6 @@ const closeModal = (modal) => {
     if (!document.querySelector('.modal.open')) document.body.classList.remove('modal-open');
 };
 
-// Areas triggers - открывают модал городов без скролла
-// Header link
-const headerAreasTrigger = $('#headerAreasTrigger');
-if (headerAreasTrigger) {
-    headerAreasTrigger.onclick = (e) => {
-        e.preventDefault();
-        openModal($('#citiesModal'));
-    };
-}
-
-// Service areas bar (bottom of page)
-const areasBarTrigger = $('#areasTrigger');
-if (areasBarTrigger) {
-    areasBarTrigger.onclick = (e) => {
-        e.preventDefault();
-        openModal($('#citiesModal'));
-    };
-}
-
 $$('.service-card').forEach(card => {
     card.addEventListener('click', () => {
         const service = card.getAttribute('data-service');
